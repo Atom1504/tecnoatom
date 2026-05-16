@@ -9,38 +9,174 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as NosotrosRouteImport } from './routes/nosotros'
+import { Route as IndustriasRouteImport } from './routes/industrias'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as ConstructaRouteImport } from './routes/constructa'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NosotrosRoute = NosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriasRoute = IndustriasRouteImport.update({
+  id: '/industrias',
+  path: '/industrias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConstructaRoute = ConstructaRouteImport.update({
+  id: '/constructa',
+  path: '/constructa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ServiciosRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/constructa': typeof ConstructaRoute
+  '/contacto': typeof ContactoRoute
+  '/industrias': typeof IndustriasRoute
+  '/nosotros': typeof NosotrosRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/constructa': typeof ConstructaRoute
+  '/contacto': typeof ContactoRoute
+  '/industrias': typeof IndustriasRoute
+  '/nosotros': typeof NosotrosRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/constructa': typeof ConstructaRoute
+  '/contacto': typeof ContactoRoute
+  '/industrias': typeof IndustriasRoute
+  '/nosotros': typeof NosotrosRoute
+  '/servicios': typeof ServiciosRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/constructa'
+    | '/contacto'
+    | '/industrias'
+    | '/nosotros'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/servicios/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/constructa'
+    | '/contacto'
+    | '/industrias'
+    | '/nosotros'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/servicios/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/constructa'
+    | '/contacto'
+    | '/industrias'
+    | '/nosotros'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/servicios/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConstructaRoute: typeof ConstructaRoute
+  ContactoRoute: typeof ContactoRoute
+  IndustriasRoute: typeof IndustriasRoute
+  NosotrosRoute: typeof NosotrosRoute
+  ServiciosRoute: typeof ServiciosRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nosotros': {
+      id: '/nosotros'
+      path: '/nosotros'
+      fullPath: '/nosotros'
+      preLoaderRoute: typeof NosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industrias': {
+      id: '/industrias'
+      path: '/industrias'
+      fullPath: '/industrias'
+      preLoaderRoute: typeof IndustriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/constructa': {
+      id: '/constructa'
+      path: '/constructa'
+      fullPath: '/constructa'
+      preLoaderRoute: typeof ConstructaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +184,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/servicios/$slug': {
+      id: '/servicios/$slug'
+      path: '/$slug'
+      fullPath: '/servicios/$slug'
+      preLoaderRoute: typeof ServiciosSlugRouteImport
+      parentRoute: typeof ServiciosRoute
+    }
   }
 }
 
+interface ServiciosRouteChildren {
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
+}
+
+const ServiciosRouteChildren: ServiciosRouteChildren = {
+  ServiciosSlugRoute: ServiciosSlugRoute,
+}
+
+const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
+  ServiciosRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConstructaRoute: ConstructaRoute,
+  ContactoRoute: ContactoRoute,
+  IndustriasRoute: IndustriasRoute,
+  NosotrosRoute: NosotrosRoute,
+  ServiciosRoute: ServiciosRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
