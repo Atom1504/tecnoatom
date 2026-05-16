@@ -1,26 +1,46 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Hero } from "@/components/sections/Hero";
+import { ClientsMarquee } from "@/components/sections/ClientsMarquee";
+import { ServicesGrid } from "@/components/sections/ServicesGrid";
+import { ConstructaTeaser } from "@/components/sections/ConstructaTeaser";
+import { ValuePillars } from "@/components/sections/ValuePillars";
+import { ProcessSteps } from "@/components/sections/ProcessSteps";
+import { IndustriesStrip } from "@/components/sections/IndustriesStrip";
+import { MetricsBand } from "@/components/sections/MetricsBand";
+import { ContactSection } from "@/components/sections/ContactSection";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "TECNOATOM — Soluciones Empresariales de Software" },
+      {
+        name: "description",
+        content:
+          "Empresa de software en Bucaramanga. Desarrollo a la medida, consultoría TI, cloud, ciberseguridad y Constructa ERP para construcción.",
+      },
+      { property: "og:title", content: "TECNOATOM — Soluciones Empresariales" },
+      {
+        property: "og:description",
+        content:
+          "Soluciones empresariales y Constructa ERP para empresas de construcción de licitación.",
+      },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="-mt-20">
+      <Hero />
+      <ClientsMarquee />
+      <ServicesGrid limit={6} />
+      <ValuePillars />
+      <ConstructaTeaser />
+      <MetricsBand />
+      <ProcessSteps />
+      <IndustriesStrip />
+      <ContactSection />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
