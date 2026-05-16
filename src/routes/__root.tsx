@@ -80,7 +80,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Desarrollo de software, consultoría TI, cloud, ciberseguridad y Constructa ERP para la industria de la construcción. Bucaramanga, Colombia.",
       },
       { name: "author", content: "TECNOATOM" },
-      { property: "og:title", content: "TECNOATOM — Soluciones Empresariales" },
+      { property: "og:title", content: "TECNOATOM — Soluciones Empresariales de Software" },
       {
         property: "og:description",
         content:
@@ -88,6 +88,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "TECNOATOM — Soluciones Empresariales de Software" },
+      { name: "description", content: "Tecnoatom Solutions Hub is a dynamic, responsive website showcasing business solutions and ERP software." },
+      { property: "og:description", content: "Tecnoatom Solutions Hub is a dynamic, responsive website showcasing business solutions and ERP software." },
+      { name: "twitter:description", content: "Tecnoatom Solutions Hub is a dynamic, responsive website showcasing business solutions and ERP software." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/378e740c-b6f0-40e8-9c2a-ca2c8281591c/id-preview-68c18816--cca6e579-db63-45ec-86b3-40dd2ce4fd2b.lovable.app-1778912187290.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/378e740c-b6f0-40e8-9c2a-ca2c8281591c/id-preview-68c18816--cca6e579-db63-45ec-86b3-40dd2ce4fd2b.lovable.app-1778912187290.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
