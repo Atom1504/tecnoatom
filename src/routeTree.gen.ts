@@ -9,12 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as NosotrosRouteImport } from './routes/nosotros'
+import { Route as IndustriasRouteImport } from './routes/industrias'
+import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as ConstructaRouteImport } from './routes/constructa'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
   path: '/servicios',
@@ -23,6 +31,16 @@ const ServiciosRoute = ServiciosRouteImport.update({
 const NosotrosRoute = NosotrosRouteImport.update({
   id: '/nosotros',
   path: '/nosotros',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriasRoute = IndustriasRouteImport.update({
+  id: '/industrias',
+  path: '/industrias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConstructaRoute = ConstructaRouteImport.update({
@@ -44,23 +62,32 @@ const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/constructa': typeof ConstructaRoute
+  '/contacto': typeof ContactoRoute
+  '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
   '/servicios': typeof ServiciosRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/constructa': typeof ConstructaRoute
+  '/contacto': typeof ContactoRoute
+  '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
   '/servicios': typeof ServiciosRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/constructa': typeof ConstructaRoute
+  '/contacto': typeof ContactoRoute
+  '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
   '/servicios': typeof ServiciosRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRouteTypes {
@@ -68,29 +95,53 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/constructa'
+    | '/contacto'
+    | '/industrias'
     | '/nosotros'
     | '/servicios'
+    | '/sitemap.xml'
     | '/servicios/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/constructa' | '/nosotros' | '/servicios' | '/servicios/$slug'
+  to:
+    | '/'
+    | '/constructa'
+    | '/contacto'
+    | '/industrias'
+    | '/nosotros'
+    | '/servicios'
+    | '/sitemap.xml'
+    | '/servicios/$slug'
   id:
     | '__root__'
     | '/'
     | '/constructa'
+    | '/contacto'
+    | '/industrias'
     | '/nosotros'
     | '/servicios'
+    | '/sitemap.xml'
     | '/servicios/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ConstructaRoute: typeof ConstructaRoute
+  ContactoRoute: typeof ContactoRoute
+  IndustriasRoute: typeof IndustriasRoute
   NosotrosRoute: typeof NosotrosRoute
   ServiciosRoute: typeof ServiciosRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/servicios': {
       id: '/servicios'
       path: '/servicios'
@@ -103,6 +154,20 @@ declare module '@tanstack/react-router' {
       path: '/nosotros'
       fullPath: '/nosotros'
       preLoaderRoute: typeof NosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industrias': {
+      id: '/industrias'
+      path: '/industrias'
+      fullPath: '/industrias'
+      preLoaderRoute: typeof IndustriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/constructa': {
@@ -144,8 +209,11 @@ const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ConstructaRoute: ConstructaRoute,
+  ContactoRoute: ContactoRoute,
+  IndustriasRoute: IndustriasRoute,
   NosotrosRoute: NosotrosRoute,
   ServiciosRoute: ServiciosRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
