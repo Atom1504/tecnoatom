@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  tecnoatom-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tecnoatom_web
+    restart: unless-stopped
+    # Ya no exponemos puertos externamente. El proxy se encargará de ello.
+    expose:
+      - "4173"
+    environment:
+      - NODE_ENV=production
+
+  # Caddy actuará como Reverse Proxy y generará automáticamente los certificados SSL
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy_proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp" # Necesario para HTTP/3 (rendimiento más rápido)
+    volumes:
+      # Montamos el archivo de configuración
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      # Volumen persistente para los certificados SSL de Let's Encrypt
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - tecnoatom-web
+
+volumes:
+  caddy_data:
+  caddy_config:
