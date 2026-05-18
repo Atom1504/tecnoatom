@@ -19,10 +19,10 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 
 export function MetricsBand() {
   const metrics = [
-    { value: 80, suffix: "+", label: "Proyectos entregados" },
-    { value: 12, suffix: "+", label: "Años de trayectoria" },
-    { value: 35, suffix: "+", label: "Profesionales en equipo" },
-    { value: 98, suffix: "%", label: "Clientes que renuevan" },
+    { value: 99, suffix: "+", label: "Proyectos entregados" },
+    { value: 45, suffix: "+", label: "Módulos operativos" },
+    { value: 150, suffix: "+", label: "Procesos optimizados" },
+    { value: 100, suffix: "%", label: "Infraestructura Cloud" },
   ];
 
   return (

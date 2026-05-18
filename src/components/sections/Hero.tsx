@@ -84,9 +84,9 @@ export function Hero() {
             className="mt-16 grid grid-cols-3 gap-4 sm:gap-8"
           >
             {[
-              { k: "12+", v: "Años entregando" },
-              { k: "80+", v: "Proyectos exitosos" },
-              { k: "98%", v: "Retención de clientes" },
+              { k: "99+", v: "Proyectos entregados" },
+              { k: "100%", v: "Cloud Nativo" },
+              { k: "45+", v: "Módulos desarrollados" },
             ].map((s) => (
               <div key={s.v} className="text-center">
                 <div className="text-2xl font-semibold text-white sm:text-4xl">{s.k}</div>

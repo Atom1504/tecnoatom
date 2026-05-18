@@ -7,6 +7,8 @@ import { MetricsBand } from "@/components/sections/MetricsBand";
 import { CTASection } from "@/components/sections/CTASection";
 import { ValuePillars } from "@/components/sections/ValuePillars";
 
+import { ClientsMarquee } from "@/components/sections/ClientsMarquee";
+
 export const Route = createFileRoute("/servicios")({
   head: () => ({
     meta: [
@@ -27,6 +29,7 @@ function ServiciosPage() {
         title="Soluciones para cada etapa de tu transformación"
         subtitle="Desde la primera línea de código hasta el dashboard de la junta directiva — tenemos un servicio pensado para cada momento."
       />
+      <ClientsMarquee />
       <ServicesGrid />
       <ValuePillars />
       <ProcessSteps />

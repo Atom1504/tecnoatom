@@ -88,8 +88,8 @@ function ConstructaPage() {
                 </div>
               </Reveal>
             </div>
-            <Reveal delay={0.2}>
-              <div className="lg:col-span-5">
+            <div className="lg:col-span-5">
+              <Reveal delay={0.2}>
                 <div className="glass rounded-3xl border-white/10 p-6 shadow-glow">
                   <div className="flex items-center justify-between text-xs text-white/65">
                     <span>Resumen ejecutivo · Q2</span>
@@ -131,8 +131,8 @@ function ConstructaPage() {
                     ))}
                   </div>
                 </div>
-              </div>
-            </Reveal>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>

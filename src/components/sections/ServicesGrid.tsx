@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/ui-custom/SectionHeading";
 export function ServicesGrid({ limit }: { limit?: number }) {
   const list = limit ? services.slice(0, limit) : services;
   return (
-    <section className="relative py-24 sm:py-32">
+    <section className="relative pt-24 pb-12 sm:pt-32 sm:pb-16">
       <div className="container-x">
         <SectionHeading
           eyebrow="Servicios"

@@ -5,13 +5,13 @@ import { services } from "@/data/services";
 
 export function Footer() {
   return (
-    <footer className="relative mt-24 overflow-hidden bg-gradient-hero text-white">
+    <footer className="relative overflow-hidden bg-gradient-hero text-white">
       <div className="absolute inset-0 bg-gradient-radial opacity-70" aria-hidden />
       <div className="absolute inset-0 grid-pattern opacity-[0.08]" aria-hidden />
       <div className="container-x relative z-10 py-16">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <img src={logoLight} alt="TECNOATOM" className="h-10 w-auto" />
+            <img src={logoLight} alt="TECNOATOM" className="h-12 w-auto" />
             <p className="mt-5 max-w-sm text-sm text-white/70">
               Soluciones empresariales que transforman datos en decisiones, procesos en ventajas
               competitivas y software en resultados medibles.

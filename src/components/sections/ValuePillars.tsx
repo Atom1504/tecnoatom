@@ -27,7 +27,7 @@ const pillars = [
 
 export function ValuePillars() {
   return (
-    <section className="relative bg-surface py-24 sm:py-32">
+    <section className="relative bg-surface pt-12 pb-24 sm:pt-16 sm:pb-32">
       <div className="container-x">
         <SectionHeading
           eyebrow="¿Por qué TECNOATOM?"

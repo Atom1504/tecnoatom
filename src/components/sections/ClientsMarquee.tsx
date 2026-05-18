@@ -1,7 +1,17 @@
+import useEmblaCarousel from "embla-carousel-react";
+import AutoScroll from "embla-carousel-auto-scroll";
+
 const clients = [
-  "Inducables", "Constructora Norte", "Grupo Andina", "Minerales del Sur",
-  "Vías & Obras", "AgroTech S.A.", "Banco Capital", "Aurum Hotels",
-  "Logística Andes", "EcoEnergía", "Salud Vital", "InverCorp",
+  { name: "Koffy Lovers", logo: "/clientes/koffy.png", className: "scale-100" },
+  { name: "Cámara de Comercio de Bucaramanga", logo: "/clientes/ccb.png", className: "scale-125" },
+  { name: "F", logo: "/clientes/f.png", className: "scale-[0.8]" },
+  { name: "I&M Ingeniería y Minerales S.A.S", logo: "/clientes/im.png", className: "scale-[1.8]" },
+  { name: "Gavassa", logo: "/clientes/gavassa.png", className: "scale-150" },
+  { name: "Aguardiente Superior", logo: "/clientes/superior.png", className: "scale-90" },
+  { name: "Theatron", logo: "/clientes/theatron.png", className: "scale-100" },
+  { name: "Guanes Coffee", logo: "/clientes/guanes.png", className: "scale-125" },
+  { name: "Jägermeister", logo: "/clientes/jagermeister.png", className: "scale-90" },
+  { name: "LC Soluciones", logo: "/clientes/lc.png", className: "scale-[0.85]" },
 ];
 
 export function ClientsMarquee({
@@ -12,6 +22,10 @@ export function ClientsMarquee({
   title?: string;
 }) {
   const isDark = variant === "dark";
+  const [emblaRef] = useEmblaCarousel({ loop: true, dragFree: true }, [
+    AutoScroll({ playOnInit: true, speed: 0.8, stopOnInteraction: false, stopOnMouseEnter: true }),
+  ]);
+
   return (
     <section
       className={`relative overflow-hidden py-14 ${
@@ -39,19 +53,23 @@ export function ClientsMarquee({
             isDark ? "from-[oklch(0.18_0.05_285)] to-transparent" : "from-surface to-transparent"
           }`}
         />
-        <div className="flex animate-marquee gap-12 whitespace-nowrap will-change-transform">
-          {[...clients, ...clients].map((name, i) => (
-            <div
-              key={i}
-              className={`flex h-14 shrink-0 items-center justify-center rounded-xl border px-8 text-base font-semibold tracking-wide ${
-                isDark
-                  ? "border-white/10 bg-white/5 text-white/85"
-                  : "border-border bg-card text-foreground/85"
-              }`}
-            >
-              {name}
-            </div>
-          ))}
+        <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
+          <div className="flex touch-pan-y" style={{ willChange: "transform" }}>
+            {clients.map((client, i) => (
+              <div
+                key={i}
+                className="group mr-8 flex h-28 w-60 shrink-0 select-none items-center justify-center rounded-2xl bg-white p-4 shadow-sm transition-transform hover:-translate-y-1"
+              >
+                <img
+                  src={client.logo}
+                  alt={client.name}
+                  title={client.name}
+                  draggable={false}
+                  className={`pointer-events-none max-h-full max-w-full object-contain transition-transform group-hover:scale-110 ${client.className || ""}`}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -59,3 +77,4 @@ export function ClientsMarquee({
 }
 
 export default ClientsMarquee;
+

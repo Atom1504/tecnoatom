@@ -13,9 +13,9 @@ export function ContactSection() {
   };
 
   return (
-    <section className="relative py-24 sm:py-32">
+    <section className="relative pt-24 pb-16 sm:pt-32 sm:pb-20">
       <div className="container-x">
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <Reveal>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
@@ -36,7 +36,7 @@ export function ContactSection() {
               </p>
             </Reveal>
 
-            <div className="mt-10 space-y-5">
+            <div className="mt-6 space-y-2">
               <ContactRow
                 icon={MapPin}
                 title="Visítanos"
@@ -87,12 +87,13 @@ export function ContactSection() {
                   defaultValue=""
                 >
                   <option value="" disabled>Selecciona una opción</option>
-                  <option>Software a la medida</option>
-                  <option>Consultoría TI</option>
-                  <option>Constructa ERP</option>
-                  <option>Cloud / Infraestructura</option>
-                  <option>Ciberseguridad</option>
-                  <option>Otro</option>
+                  <option>Desarrollo de Software a la Medida</option>
+                  <option>Consultoría TI Estratégica</option>
+                  <option>Ciberseguridad Empresarial</option>
+                  <option>Automatización de Procesos</option>
+                  <option>Datos & Analítica</option>
+                  <option>Aplicaciones Móviles</option>
+                  <option>Otros</option>
                 </select>
               </div>
               <div className="mt-4">
