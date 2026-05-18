@@ -16,7 +16,7 @@ import { Route as IndustriasRouteImport } from './routes/industrias'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as ConstructaRouteImport } from './routes/constructa'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ServiciosSlugRouteImport } from './routes/servicios.$slug'
+import { Route as ServiciosSlugRouteImport } from './routes/servicios_.$slug'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -54,9 +54,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ServiciosRoute,
+  id: '/servicios_/$slug',
+  path: '/servicios/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -65,7 +65,7 @@ export interface FileRoutesByFullPath {
   '/contacto': typeof ContactoRoute
   '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
-  '/servicios': typeof ServiciosRouteWithChildren
+  '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
 }
@@ -75,7 +75,7 @@ export interface FileRoutesByTo {
   '/contacto': typeof ContactoRoute
   '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
-  '/servicios': typeof ServiciosRouteWithChildren
+  '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
 }
@@ -86,9 +86,9 @@ export interface FileRoutesById {
   '/contacto': typeof ContactoRoute
   '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
-  '/servicios': typeof ServiciosRouteWithChildren
+  '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/servicios/$slug': typeof ServiciosSlugRoute
+  '/servicios_/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -120,7 +120,7 @@ export interface FileRouteTypes {
     | '/nosotros'
     | '/servicios'
     | '/sitemap.xml'
-    | '/servicios/$slug'
+    | '/servicios_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,8 +129,9 @@ export interface RootRouteChildren {
   ContactoRoute: typeof ContactoRoute
   IndustriasRoute: typeof IndustriasRoute
   NosotrosRoute: typeof NosotrosRoute
-  ServiciosRoute: typeof ServiciosRouteWithChildren
+  ServiciosRoute: typeof ServiciosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ServiciosSlugRoute: typeof ServiciosSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -184,27 +185,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/servicios/$slug': {
-      id: '/servicios/$slug'
-      path: '/$slug'
+    '/servicios_/$slug': {
+      id: '/servicios_/$slug'
+      path: '/servicios/$slug'
       fullPath: '/servicios/$slug'
       preLoaderRoute: typeof ServiciosSlugRouteImport
-      parentRoute: typeof ServiciosRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ServiciosRouteChildren {
-  ServiciosSlugRoute: typeof ServiciosSlugRoute
-}
-
-const ServiciosRouteChildren: ServiciosRouteChildren = {
-  ServiciosSlugRoute: ServiciosSlugRoute,
-}
-
-const ServiciosRouteWithChildren = ServiciosRoute._addFileChildren(
-  ServiciosRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -212,8 +201,9 @@ const rootRouteChildren: RootRouteChildren = {
   ContactoRoute: ContactoRoute,
   IndustriasRoute: IndustriasRoute,
   NosotrosRoute: NosotrosRoute,
-  ServiciosRoute: ServiciosRouteWithChildren,
+  ServiciosRoute: ServiciosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ServiciosSlugRoute: ServiciosSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
