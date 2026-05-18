@@ -1,0 +1,10 @@
+# Reemplaza "tecnoatom.com" por tu dominio real
+tecnoatom.com {
+    # Redirige todo el tráfico hacia el contenedor de tu app
+    reverse_proxy tecnoatom-web:4173
+}
+
+# Opcional: Redirigir www a la versión sin www
+www.tecnoatom.com {
+    redir https://tecnoatom.com{uri}
+}
