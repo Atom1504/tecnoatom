@@ -83,9 +83,9 @@ export function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-1/2 top-full -translate-x-1/2 pt-3"
+                    className="absolute left-1/2 top-full -translate-x-1/2 pt-3 z-50"
                   >
-                    <div className="glass w-[560px] rounded-2xl p-3 shadow-elegant">
+                    <div className="bg-card border border-border w-[560px] rounded-2xl p-3 shadow-elegant">
                       <div className="grid grid-cols-2 gap-1">
                         {services.map((s) => (
                           <Link
@@ -142,9 +142,9 @@ export function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="container-x mt-2 lg:hidden"
+            className="container-x mt-2 lg:hidden relative z-50"
           >
-            <div className="glass rounded-2xl p-3 shadow-elegant">
+            <div className="bg-card border border-border rounded-2xl p-3 shadow-elegant">
               <div className="flex flex-col">
                 {mainLinks.slice(0, 2).map((l) => (
                   <Link
