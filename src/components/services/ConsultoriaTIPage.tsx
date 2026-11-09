@@ -10,12 +10,13 @@ export function ConsultoriaTIPage() {
   return (
     <>
       <PageHero
-        eyebrow="Consultoría TI Estratégica"
+        eyebrow="Consultoría TI estratégica"
         title="Decisiones tecnológicas de alto impacto"
         subtitle="Acompañamos a la alta dirección a traducir objetivos de negocio en una estrategia tecnológica coherente, rentable y ejecutable. Deja de improvisar y opera con un plan claro."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "consultoria-ti" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Agendar diagnóstico <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function ConsultoriaTIPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="Alineamos la tecnología con tu visión de negocio"
             subtitle="La tecnología sin estrategia es solo un gasto. Nosotros la convertimos en la principal ventaja competitiva de tu empresa."
           />
@@ -36,7 +37,7 @@ export function ConsultoriaTIPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <Target className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Problema</h3>
+                <h3 className="text-xl font-semibold mb-3">El problema</h3>
                 <p className="text-muted-foreground flex-1">
                   Inversiones tecnológicas que no generan ROI, sistemas desconectados y decisiones basadas en la intuición en lugar de en datos y arquitectura.
                 </p>
@@ -50,9 +51,9 @@ export function ConsultoriaTIPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <Compass className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Solución</h3>
+                <h3 className="text-xl font-semibold mb-3">La solución</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
-                  Un Roadmap Tecnológico a 12-36 meses. Auditamos tu situación actual, definimos la arquitectura objetivo y trazamos el camino más seguro para llegar ahí.
+                  Un Roadmap tecnológico a 12-36 meses. Auditamos tu situación actual, definimos la arquitectura objetivo y trazamos el camino más seguro para llegar ahí.
                 </p>
               </div>
             </Reveal>
@@ -61,7 +62,7 @@ export function ConsultoriaTIPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
                   <LineChart className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Resultado</h3>
+                <h3 className="text-xl font-semibold mb-3">El resultado</h3>
                 <p className="text-muted-foreground flex-1">
                   Claridad absoluta para la junta directiva. Cada dólar invertido en software o infraestructura tiene una justificación estratégica clara.
                 </p>
@@ -109,10 +110,10 @@ export function ConsultoriaTIPage() {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { icon: Presentation, title: "Auditoría de Arquitectura", desc: "Evaluación del estado actual de tu ecosistema de software." },
-                  { icon: Target, title: "Roadmap Tecnológico", desc: "Planificación estratégica por trimestres con KPIs." },
-                  { icon: ShieldAlert, title: "Gestión de Riesgos", desc: "Identificación de vulnerabilidades y deudas técnicas críticas." },
-                  { icon: Users, title: "Acompañamiento Ejecutivo", desc: "Asesoría para CIOs y juntas directivas en licitaciones." }
+                  { icon: Presentation, title: "Auditoría de arquitectura", desc: "Evaluación del estado actual de tu ecosistema de software." },
+                  { icon: Target, title: "Roadmap tecnológico", desc: "Planificación estratégica por trimestres con KPIs." },
+                  { icon: ShieldAlert, title: "Gestión de riesgos", desc: "Identificación de vulnerabilidades y deudas técnicas críticas." },
+                  { icon: Users, title: "Acompañamiento ejecutivo", desc: "Asesoría para CIOs y juntas directivas en licitaciones." }
                 ].map((item, i) => (
                   <Reveal key={i} delay={i * 0.1}>
                     <div className="flex gap-4 items-start p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors">
@@ -139,15 +140,15 @@ export function ConsultoriaTIPage() {
           />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Visibilidad Total", text: "Terminamos con las cajas negras. Entenderás exactamente qué hace cada sistema y por qué lo necesitas.", value: "360°" },
-              { title: "Reducción de Riesgo", text: "Evitamos compras de software innecesarias o desarrollos abocados al fracaso por falta de planificación.", value: "-80%" },
-              { title: "Alineación Estratégica", text: "TI deja de ser un centro de costos y se convierte en el motor de innovación de la compañía.", value: "WIN" },
-              { title: "Gobierno Corporativo", text: "Establecemos políticas claras para la adopción de nuevas tecnologías e inteligencia artificial.", value: "100%" }
+              { title: "Visibilidad total", text: "Terminamos con las cajas negras. Entenderás exactamente qué hace cada sistema y por qué lo necesitas.", value: "360°" },
+              { title: "Reducción de riesgo", text: "Evitamos compras de software innecesarias o desarrollos abocados al fracaso por falta de planificación.", value: "-80%" },
+              { title: "Alineación estratégica", text: "TI deja de ser un centro de costos y se convierte en el motor de innovación de la compañía." },
+              { title: "Gobierno corporativo", text: "Establecemos políticas claras para la adopción de nuevas tecnologías e inteligencia artificial.", value: "100%" }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">{b.value}</div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -156,7 +157,7 @@ export function ConsultoriaTIPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="consultoria-ti" />
     </>
   );
 }

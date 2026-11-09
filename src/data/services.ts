@@ -17,7 +17,7 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: "desarrollo-software",
-    title: "Desarrollo de Software a la Medida",
+    title: "Desarrollo de software a la medida",
     short: "Aplicaciones empresariales construidas para tus procesos reales.",
     description:
       "Diseñamos y construimos plataformas web y aplicaciones empresariales personalizadas, alineadas a tus procesos, objetivos y crecimiento.",
@@ -44,7 +44,7 @@ export const services: Service[] = [
   },
   {
     slug: "consultoria-ti",
-    title: "Consultoría TI Estratégica",
+    title: "Consultoría TI estratégica",
     short: "Roadmap tecnológico para decisiones de alto impacto.",
     description:
       "Acompañamos a la alta dirección a traducir objetivos de negocio en una estrategia tecnológica coherente, rentable y ejecutable.",
@@ -71,7 +71,7 @@ export const services: Service[] = [
   },
   {
     slug: "cloud-infraestructura",
-    title: "Cloud & Infraestructura",
+    title: "Cloud & infraestructura",
     short: "Infraestructura segura, elástica y optimizada en costos.",
     description:
       "Diseñamos, migramos y operamos infraestructura cloud (AWS, Azure, GCP) con foco en seguridad, alta disponibilidad y eficiencia económica.",
@@ -98,7 +98,7 @@ export const services: Service[] = [
   },
   {
     slug: "ciberseguridad",
-    title: "Ciberseguridad Empresarial",
+    title: "Ciberseguridad empresarial",
     short: "Protege tus activos digitales antes que alguien los pruebe.",
     description:
       "Servicios integrales de seguridad: análisis de vulnerabilidades, hardening, políticas y respuesta a incidentes.",
@@ -125,7 +125,7 @@ export const services: Service[] = [
   },
   {
     slug: "automatizacion-procesos",
-    title: "Automatización de Procesos",
+    title: "Automatización de procesos",
     short: "Elimina trabajo manual repetitivo con flujos inteligentes.",
     description:
       "Diseñamos automatizaciones que liberan tiempo, reducen errores y aceleran tus procesos críticos.",
@@ -152,7 +152,7 @@ export const services: Service[] = [
   },
   {
     slug: "datos-analitica",
-    title: "Datos & Analítica",
+    title: "Datos & analítica",
     short: "Convierte tu información en decisiones de negocio.",
     description:
       "Integramos, modelamos y visualizamos tus datos para que la dirección tome decisiones basadas en evidencia.",
@@ -179,7 +179,7 @@ export const services: Service[] = [
   },
   {
     slug: "bases-de-datos",
-    title: "Diseño y Gestión de Bases de Datos",
+    title: "Diseño y gestión de bases de datos",
     short: "Bases de datos rápidas, consistentes y respaldadas.",
     description:
       "Arquitectura, tunning y administración de bases de datos relacionales y NoSQL para entornos productivos exigentes.",
@@ -206,7 +206,7 @@ export const services: Service[] = [
   },
   {
     slug: "apps-moviles",
-    title: "Aplicaciones Móviles",
+    title: "Aplicaciones móviles",
     short: "Apps iOS y Android con experiencia nativa.",
     description:
       "Desarrollamos aplicaciones móviles modernas, performantes y con diseño cuidado para iOS y Android.",
@@ -235,3 +235,9 @@ export const services: Service[] = [
 
 export const getServiceBySlug = (slug: string) =>
   services.find((s) => s.slug === slug);
+
+export const contactServiceOptions = [
+  ...services.map((service) => ({ value: service.slug, label: service.title })),
+  { value: "constructa", label: "Constructa ERP (demostración)" },
+  { value: "otro", label: "Otro" },
+];

@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui-custom/SectionHeading";
+import { Reveal } from "@/components/ui-custom/Reveal";
 
 const steps = [
   { n: "01", title: "Descubrimiento", text: "Entendemos tu negocio, equipo y meta. Sin guion, sin plantillas." },
   { n: "02", title: "Diseño & arquitectura", text: "Definimos cómo se ve, cómo funciona y cómo va a crecer." },
-  { n: "03", title: "Construcción ágil", text: "Entregamos en sprints, con builds reales que puedes probar." },
+  { n: "03", title: "Construcción ágil", text: "Entregamos en sprints, con versiones reales que puedes probar." },
   { n: "04", title: "Lanzamiento & evolución", text: "Salimos a producción contigo y acompañamos la mejora continua." },
 ];
 
@@ -25,20 +25,13 @@ export function ProcessSteps() {
           />
           <div className="grid gap-6 lg:grid-cols-4">
             {steps.map((s, i) => (
-              <motion.div
-                key={s.n}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="relative"
-              >
+              <Reveal key={s.n} delay={i * 0.08} className="relative">
                 <div className="relative z-10 mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-primary text-sm font-bold text-primary-foreground shadow-elegant">
                   {s.n}
                 </div>
                 <h3 className="text-lg font-semibold tracking-tight">{s.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{s.text}</p>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>

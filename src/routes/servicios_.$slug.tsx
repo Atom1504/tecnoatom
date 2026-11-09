@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getServiceBySlug } from "@/data/services";
+import { seo } from "@/lib/seo";
 
 // Importación de las nuevas páginas de servicio individuales
 import { DesarrolloSoftwarePage } from "@/components/services/DesarrolloSoftwarePage";
@@ -14,14 +15,17 @@ import { AppsMovilesPage } from "@/components/services/AppsMovilesPage";
 export const Route = createFileRoute("/servicios_/$slug")({
   head: ({ params }) => {
     const s = getServiceBySlug(params.slug);
-    return {
-      meta: [
-        { title: `${s?.title ?? "Servicio"} — TECNOATOM` },
-        { name: "description", content: s?.short ?? "Servicio profesional TECNOATOM." },
-        { property: "og:title", content: `${s?.title ?? "Servicio"} — TECNOATOM` },
-        { property: "og:description", content: s?.short ?? "" },
-      ],
-    };
+    if (!s) {
+      return seo({
+        title: "Servicio no encontrado — TECNOATOM",
+        description: "El servicio que buscas no existe o fue movido.",
+      });
+    }
+    return seo({
+      path: `/servicios/${s.slug}`,
+      title: `${s.title} — TECNOATOM`,
+      description: s.description,
+    });
   },
   loader: ({ params }) => {
     const s = getServiceBySlug(params.slug);

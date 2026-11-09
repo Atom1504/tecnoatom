@@ -10,12 +10,13 @@ export function AppsMovilesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Aplicaciones Móviles"
+        eyebrow="Aplicaciones móviles"
         title="Tu negocio, en el bolsillo de tus clientes"
         subtitle="Desarrollamos aplicaciones iOS y Android de clase mundial. Diseño espectacular, rendimiento nativo y una experiencia de usuario que genera retención y ventas."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "apps-moviles" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Cotizar aplicación móvil <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function AppsMovilesPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="Una app mediocre daña tu marca. Nosotros hacemos apps premium."
             subtitle="El usuario moderno es exigente. Si tu aplicación es lenta o confusa, la desinstalará en segundos. Construimos experiencias que enganchan."
           />
@@ -36,7 +37,7 @@ export function AppsMovilesPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <AppWindow className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Problema</h3>
+                <h3 className="text-xl font-semibold mb-3">El problema</h3>
                 <p className="text-muted-foreground flex-1">
                   Pérdida de clientes frente a competidores más digitalizados. Las webs adaptadas (responsive) no siempre logran el nivel de fidelización de una app real.
                 </p>
@@ -50,7 +51,7 @@ export function AppsMovilesPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <Smartphone className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Solución</h3>
+                <h3 className="text-xl font-semibold mb-3">La solución</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
                   Aplicaciones móviles nativas (Swift, Kotlin) o híbridas modernas (React Native) con interfaces centradas en el usuario e integradas a tu núcleo de negocio.
                 </p>
@@ -61,7 +62,7 @@ export function AppsMovilesPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
                   <Sparkles className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Resultado</h3>
+                <h3 className="text-xl font-semibold mb-3">El resultado</h3>
                 <p className="text-muted-foreground flex-1">
                   Un canal de ventas directo, notificaciones push que atraen tráfico en segundos, y un posicionamiento de marca que transmite innovación y solidez.
                 </p>
@@ -130,10 +131,10 @@ export function AppsMovilesPage() {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { icon: LayoutPanelTop, title: "Diseño UX/UI Premium", desc: "Interfaces limpias, modernas e intuitivas, probadas con usuarios reales." },
-                  { icon: Code, title: "Desarrollo Nativo e Híbrido", desc: "Swift, Kotlin, y React Native. La tecnología ideal según tus necesidades." },
+                  { icon: LayoutPanelTop, title: "Diseño UX/UI premium", desc: "Interfaces limpias, modernas e intuitivas, probadas con usuarios reales." },
+                  { icon: Code, title: "Desarrollo nativo e híbrido", desc: "Swift, Kotlin, y React Native. La tecnología ideal según tus necesidades." },
                   { icon: Play, title: "App Store & Play Store", desc: "Gestionamos todo el proceso de revisión, publicación y mantenimiento." },
-                  { icon: Code, title: "Backend Integrado", desc: "APIs seguras y robustas para conectar tu app con tu ecosistema actual." }
+                  { icon: Code, title: "Backend integrado", desc: "APIs seguras y robustas para conectar tu app con tu ecosistema actual." }
                 ].map((item, i) => (
                   <Reveal key={i} delay={i * 0.1}>
                     <div className="flex gap-4 items-start p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors">
@@ -160,15 +161,15 @@ export function AppsMovilesPage() {
           />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Canal Directo", text: "Envía ofertas directamente al bolsillo de tus usuarios mediante notificaciones Push.", value: <BellRing className="w-8 h-8" /> },
+              { title: "Canal directo", text: "Envía ofertas directamente al bolsillo de tus usuarios mediante notificaciones Push.", value: <BellRing className="w-8 h-8" /> },
               { title: "Engagement", text: "Los usuarios de apps revisan sus teléfonos decenas de veces al día, aumentando tu retención.", value: "3x" },
-              { title: "Prestigio de Marca", text: "Una aplicación cuidada, rápida y funcional eleva el estatus y la confianza de tu empresa.", value: "Top" },
-              { title: "Datos Propios", text: "Recopila analítica detallada sobre el comportamiento de tus usuarios para tomar decisiones.", value: "Data" }
+              { title: "Prestigio de marca", text: "Una aplicación cuidada, rápida y funcional eleva el estatus y la confianza de tu empresa." },
+              { title: "Datos propios", text: "Recopila analítica detallada sobre el comportamiento de tus usuarios para tomar decisiones." }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">{b.value}</div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -177,7 +178,7 @@ export function AppsMovilesPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="apps-moviles" />
     </>
   );
 }

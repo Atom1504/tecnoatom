@@ -10,12 +10,13 @@ export function DesarrolloSoftwarePage() {
   return (
     <>
       <PageHero
-        eyebrow="Desarrollo a la Medida"
+        eyebrow="Desarrollo a la medida"
         title="Software que acelera tu operación empresarial"
         subtitle="Construimos plataformas y aplicaciones web propietarias diseñadas exactamente para tus procesos. Elimina cuellos de botella, automatiza flujos y escala sin las limitaciones del software genérico."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "desarrollo-software" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Agendar asesoría técnica <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function DesarrolloSoftwarePage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="El software debe adaptarse a ti, no al revés"
             subtitle="Las herramientas empaquetadas obligan a tu empresa a cambiar sus procesos. Nosotros desarrollamos tecnología que potencia lo que ya haces bien."
           />
@@ -36,7 +37,7 @@ export function DesarrolloSoftwarePage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <RefreshCcw className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Problema Actual</h3>
+                <h3 className="text-xl font-semibold mb-3">El problema actual</h3>
                 <p className="text-muted-foreground flex-1">
                   Tu equipo pierde horas en tareas manuales sincronizando Excels o luchando con un software rígido que no cubre el 100% de la operativa del negocio.
                 </p>
@@ -50,7 +51,7 @@ export function DesarrolloSoftwarePage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <Zap className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Solución</h3>
+                <h3 className="text-xl font-semibold mb-3">La solución</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
                   Un sistema unificado y a la medida. Centraliza la información, automatiza aprobaciones y brinda a tus colaboradores una herramienta intuitiva y rápida.
                 </p>
@@ -86,10 +87,10 @@ export function DesarrolloSoftwarePage() {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { icon: LayoutGrid, title: "Plataformas Web & SaaS", desc: "Portales de clientes y paneles administrativos." },
+                  { icon: LayoutGrid, title: "Plataformas web & SaaS", desc: "Portales de clientes y paneles administrativos." },
                   { icon: Layers, title: "Integración de APIs", desc: "Conectamos tu nuevo software con ERPs o CRMs." },
-                  { icon: Code2, title: "Stack Moderno", desc: "React, Node.js, TypeScript y arquitecturas Cloud." },
-                  { icon: Cpu, title: "Alta Concurrencia", desc: "Sistemas preparados para miles de usuarios simultáneos." }
+                  { icon: Code2, title: "Stack moderno", desc: "React, Node.js, TypeScript y arquitecturas cloud." },
+                  { icon: Cpu, title: "Alta concurrencia", desc: "Sistemas preparados para miles de usuarios simultáneos." }
                 ].map((item, i) => (
                   <Reveal key={i} delay={i * 0.1}>
                     <div className="flex gap-4 items-start p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors">
@@ -134,15 +135,15 @@ export function DesarrolloSoftwarePage() {
           />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Reducción de Costos", text: "Al automatizar procesos manuales, reduces drásticamente las horas-hombre desperdiciadas.", value: "ROI" },
-              { title: "Propiedad Intelectual", text: "Sin licencias mensuales abusivas. El código es un activo que le pertenece a tu empresa.", value: "100%" },
-              { title: "Escalabilidad Total", text: "La infraestructura crece automáticamente según la demanda de tus usuarios o clientes.", value: "∞" },
-              { title: "Seguridad Grado Enterprise", text: "Protección de datos desde el diseño, cumpliendo normativas internacionales de privacidad.", value: "SLA" }
+              { title: "Reducción de costos", text: "Al automatizar procesos manuales, reduces drásticamente las horas-hombre desperdiciadas." },
+              { title: "Propiedad intelectual", text: "Sin licencias mensuales abusivas. El código es un activo que le pertenece a tu empresa.", value: "100%" },
+              { title: "Escalabilidad total", text: "La infraestructura crece automáticamente según la demanda de tus usuarios o clientes." },
+              { title: "Seguridad grado enterprise", text: "Protección de datos desde el diseño, cumpliendo normativas internacionales de privacidad." }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">{b.value}</div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -151,7 +152,7 @@ export function DesarrolloSoftwarePage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="desarrollo-software" />
     </>
   );
 }

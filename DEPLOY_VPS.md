@@ -42,7 +42,21 @@ www.tu-dominio-real.com {
 }
 ```
 
-### 3.2. Configuración del Firewall (Opcional pero recomendado)
+Si cambias de dominio, actualiza también `SITE_URL` en `src/lib/site.ts`: de ahí salen las URL canónicas, el sitemap y la imagen para compartir.
+
+### 3.2. Configurar el envío del formulario de contacto
+El formulario envía los mensajes por correo con [Resend](https://resend.com). Sin esta configuración, el sitio funciona pero el formulario muestra un error con los demás canales de contacto.
+
+1. Crea una cuenta en Resend y verifica tu dominio siguiendo sus instrucciones de DNS.
+2. Genera una clave de API.
+3. En la carpeta del proyecto, en el VPS, crea el archivo de variables y complétalo:
+
+```bash
+cp .env.example .env
+nano .env
+```
+
+### 3.3. Configuración del Firewall (Opcional pero recomendado)
 Si tu VPS utiliza `ufw` (Ubuntu Firewall), asegúrate de tener abiertos los puertos esenciales para la web y para no perder tu conexión SSH:
 
 ```bash

@@ -1,5 +1,5 @@
-import { motion } from "framer-motion";
 import { Rocket, Users, Shield, Zap } from "lucide-react";
+import { Reveal } from "@/components/ui-custom/Reveal";
 import { SectionHeading } from "@/components/ui-custom/SectionHeading";
 
 const pillars = [
@@ -27,35 +27,27 @@ const pillars = [
 
 export function ValuePillars() {
   return (
-    <section className="relative bg-surface pt-12 pb-24 sm:pt-16 sm:pb-32">
-      <div className="container-x">
-        <SectionHeading
-          eyebrow="¿Por qué TECNOATOM?"
-          title="Aliados estratégicos, no solo proveedores"
-          subtitle="Nuestro compromiso no termina cuando el software se entrega — empieza cuando empieza a generar valor para tu empresa."
-        />
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {pillars.map((p, i) => (
-            <motion.div
-              key={p.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition hover:border-primary/30 hover:shadow-soft"
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
-                <p.icon className="h-5 w-5" />
-              </div>
-              <h3 className="mt-4 text-lg font-semibold tracking-tight">{p.title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{p.text}</p>
-              <div
-                aria-hidden
-                className="absolute inset-x-0 bottom-0 h-0.5 origin-left scale-x-0 bg-gradient-primary transition-transform duration-500 group-hover:scale-x-100"
-              />
-            </motion.div>
-          ))}
+    <section className="relative bg-surface py-20 sm:py-28">
+      <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+          <SectionHeading
+            align="left"
+            eyebrow="¿Por qué TECNOATOM?"
+            title="Aliados estratégicos, no solo proveedores"
+            subtitle="Nuestro compromiso no termina cuando el software se entrega — empieza cuando empieza a generar valor para tu empresa."
+          />
         </div>
+        <ul className="divide-y divide-border lg:col-span-7">
+          {pillars.map((p, i) => (
+            <Reveal as="li" key={p.title} delay={i * 0.07} className="flex gap-5 py-6 first:pt-0 last:pb-0">
+              <p.icon className="mt-1 h-6 w-6 shrink-0 text-primary" aria-hidden />
+              <div>
+                <h3 className="text-lg font-semibold tracking-tight sm:text-xl">{p.title}</h3>
+                <p className="mt-1.5 text-muted-foreground">{p.text}</p>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );

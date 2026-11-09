@@ -1,15 +1,48 @@
-import { useState } from "react";
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from "lucide-react";
+import { useId, useState, type ComponentType, type FormEvent } from "react";
+import { Link } from "@tanstack/react-router";
+import { AlertCircle, CheckCircle2, Clock, Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
 import { Reveal } from "@/components/ui-custom/Reveal";
+import { WhatsAppIcon } from "@/components/ui-custom/WhatsAppIcon";
+import { contactServiceOptions } from "@/data/services";
+import { CONTACT } from "@/lib/site";
 
-export function ContactSection() {
-  const [sent, setSent] = useState(false);
+type SubmitStatus = "idle" | "sending" | "success" | "error";
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    (e.target as HTMLFormElement).reset();
+const labelClass =
+  "mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground";
+const controlClass =
+  "w-full rounded-lg border border-input bg-background px-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20";
+const inlineLinkClass = "font-medium text-primary underline underline-offset-2";
+
+async function submitContactForm(form: HTMLFormElement) {
+  const fields = Object.fromEntries(new FormData(form));
+  const response = await fetch("/api/contacto", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...fields, consentimiento: fields.consentimiento === "on" }),
+  });
+  return response.ok;
+}
+
+export function ContactSection({ defaultService = "" }: { defaultService?: string }) {
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const serviceId = useId();
+  const messageId = useId();
+  const consentId = useId();
+  const isSending = status === "sending";
+
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    setStatus("sending");
+
+    const delivered = await submitContactForm(form).catch(() => false);
+    if (!delivered) {
+      setStatus("error");
+      return;
+    }
+    form.reset();
+    setStatus("success");
   };
 
   return (
@@ -26,7 +59,7 @@ export function ContactSection() {
             <Reveal delay={0.05}>
               <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-5xl">
                 Cuéntanos tu proyecto.<br />
-                Te respondemos en <span className="text-gradient">24 horas</span>.
+                Te respondemos en <span className="text-gradient">24 horas hábiles</span>.
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
@@ -37,28 +70,27 @@ export function ContactSection() {
             </Reveal>
 
             <div className="mt-6 space-y-2">
+              <ContactRow icon={MapPin} title="Visítanos" text={CONTACT.address} />
               <ContactRow
-                icon={MapPin}
-                title="Visítanos"
-                text="Cl 36 #27-71, Mejoras Públicas, Bucaramanga, Santander"
+                icon={WhatsAppIcon}
+                title="WhatsApp"
+                text={CONTACT.phone}
+                href={CONTACT.whatsappHref}
+                external
               />
               <ContactRow
                 icon={Phone}
                 title="Llámanos"
-                text="+57 314 267 1185"
-                href="tel:+573142671185"
+                text={CONTACT.phone}
+                href={CONTACT.phoneHref}
               />
               <ContactRow
                 icon={Mail}
                 title="Escríbenos"
-                text="contacto@tecnoatom.com"
-                href="mailto:contacto@tecnoatom.com"
+                text={CONTACT.email}
+                href={CONTACT.emailHref}
               />
-              <ContactRow
-                icon={Clock}
-                title="Horario de atención"
-                text="Lunes a viernes · 8:00 a.m. – 6:00 p.m."
-              />
+              <ContactRow icon={Clock} title="Horario de atención" text={CONTACT.hours} />
             </div>
           </div>
 
@@ -71,51 +103,113 @@ export function ContactSection() {
                 aria-hidden
                 className="absolute -inset-1 -z-10 rounded-3xl bg-gradient-primary opacity-10 blur-2xl"
               />
+              <p className="mb-4 text-xs text-muted-foreground">
+                Los campos marcados con <span className="text-destructive">*</span> son obligatorios.
+              </p>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Nombre" name="nombre" placeholder="Tu nombre" required />
-                <Field label="Empresa" name="empresa" placeholder="Tu empresa" />
-                <Field label="Email" name="email" type="email" placeholder="tu@empresa.com" required />
-                <Field label="Teléfono" name="telefono" placeholder="+57 300 0000000" />
+                <Field
+                  label="Nombre"
+                  name="nombre"
+                  placeholder="Tu nombre"
+                  autoComplete="name"
+                  minLength={2}
+                  maxLength={120}
+                  required
+                />
+                <Field
+                  label="Empresa"
+                  name="empresa"
+                  placeholder="Tu empresa"
+                  autoComplete="organization"
+                  maxLength={160}
+                />
+                <Field
+                  label="Email"
+                  name="email"
+                  type="email"
+                  placeholder="tu@empresa.com"
+                  autoComplete="email"
+                  maxLength={254}
+                  required
+                />
+                <Field
+                  label="Teléfono"
+                  name="telefono"
+                  type="tel"
+                  placeholder="+57 300 0000000"
+                  autoComplete="tel"
+                  maxLength={40}
+                />
               </div>
               <div className="mt-4">
-                <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                <label htmlFor={serviceId} className={labelClass}>
                   Servicio de interés
                 </label>
                 <select
+                  key={defaultService}
+                  id={serviceId}
                   name="servicio"
-                  className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
-                  defaultValue=""
+                  className={`h-11 ${controlClass}`}
+                  defaultValue={defaultService}
                 >
-                  <option value="" disabled>Selecciona una opción</option>
-                  <option>Desarrollo de Software a la Medida</option>
-                  <option>Consultoría TI Estratégica</option>
-                  <option>Ciberseguridad Empresarial</option>
-                  <option>Automatización de Procesos</option>
-                  <option>Datos & Analítica</option>
-                  <option>Aplicaciones Móviles</option>
-                  <option>Otros</option>
+                  <option value="" disabled>
+                    Selecciona una opción
+                  </option>
+                  {contactServiceOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="mt-4">
-                <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  Mensaje
+                <label htmlFor={messageId} className={labelClass}>
+                  Mensaje <RequiredMark />
                 </label>
                 <textarea
+                  id={messageId}
                   name="mensaje"
                   rows={4}
                   placeholder="Cuéntanos tu reto o idea…"
+                  minLength={10}
+                  maxLength={5000}
                   required
-                  className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className={`py-2.5 ${controlClass}`}
                 />
               </div>
+
+              <div aria-hidden className="absolute -left-[9999px] h-px w-px overflow-hidden">
+                <label>
+                  No completar este campo
+                  <input type="text" name="sitio" tabIndex={-1} autoComplete="off" />
+                </label>
+              </div>
+
+              <div className="mt-4 flex items-start gap-2.5">
+                <input
+                  id={consentId}
+                  type="checkbox"
+                  name="consentimiento"
+                  required
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--primary)]"
+                />
+                <label htmlFor={consentId} className="text-xs text-muted-foreground">
+                  Autorizo el tratamiento de mis datos según la{" "}
+                  <Link to="/politica-de-datos" target="_blank" className={inlineLinkClass}>
+                    política de tratamiento de datos
+                  </Link>
+                  . <RequiredMark />
+                </label>
+              </div>
+
               <button
                 type="submit"
-                disabled={sent}
+                disabled={isSending}
                 className="mt-5 inline-flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-gradient-primary text-sm font-semibold text-primary-foreground shadow-elegant transition hover:shadow-glow disabled:opacity-70"
               >
-                {sent ? (
+                {isSending ? (
                   <>
-                    <CheckCircle2 className="h-4 w-4" /> Mensaje enviado
+                    <Loader2 className="h-4 w-4 animate-spin" /> Enviando…
                   </>
                 ) : (
                   <>
@@ -123,9 +217,43 @@ export function ContactSection() {
                   </>
                 )}
               </button>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                Al enviar aceptas nuestra política de tratamiento de datos.
-              </p>
+
+              <div role="status">
+                {status === "success" && (
+                  <p className="mt-4 flex items-start gap-2 rounded-lg bg-emerald-500/10 p-3 text-sm text-foreground">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />
+                    Recibimos tu mensaje. Te respondemos en menos de 24 horas hábiles.
+                  </p>
+                )}
+              </div>
+              <div role="alert">
+                {status === "error" && (
+                  <p className="mt-4 flex items-start gap-2 rounded-lg bg-destructive/10 p-3 text-sm text-foreground">
+                    <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-destructive" />
+                    <span>
+                      No pudimos enviar tu mensaje; tus datos siguen en el formulario. Inténtalo de
+                      nuevo o contáctanos por{" "}
+                      <a
+                        href={CONTACT.whatsappHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={inlineLinkClass}
+                      >
+                        WhatsApp
+                      </a>
+                      , al{" "}
+                      <a href={CONTACT.phoneHref} className={inlineLinkClass}>
+                        {CONTACT.phone}
+                      </a>{" "}
+                      o a{" "}
+                      <a href={CONTACT.emailHref} className={inlineLinkClass}>
+                        {CONTACT.email}
+                      </a>
+                      .
+                    </span>
+                  </p>
+                )}
+              </div>
             </form>
           </Reveal>
         </div>
@@ -134,21 +262,34 @@ export function ContactSection() {
   );
 }
 
+function RequiredMark() {
+  return (
+    <span aria-hidden className="text-destructive">
+      *
+    </span>
+  );
+}
+
 function ContactRow({
   icon: Icon,
   title,
   text,
   href,
+  external,
 }: {
-  icon: typeof MapPin;
+  icon: ComponentType<{ className?: string }>;
   title: string;
   text: string;
   href?: string;
+  external?: boolean;
 }) {
   const Wrapper: React.ElementType = href ? "a" : "div";
+  const linkProps = href
+    ? { href, ...(external ? { target: "_blank", rel: "noopener noreferrer" } : {}) }
+    : {};
   return (
     <Wrapper
-      {...(href ? { href } : {})}
+      {...linkProps}
       className="group flex items-start gap-4 rounded-xl border border-transparent p-3 transition hover:border-border hover:bg-surface"
     >
       <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground shadow-soft">
@@ -166,28 +307,31 @@ function ContactRow({
 
 function Field({
   label,
-  name,
   type = "text",
-  placeholder,
   required,
+  ...inputProps
 }: {
   label: string;
   name: string;
   type?: string;
   placeholder?: string;
   required?: boolean;
+  autoComplete: string;
+  minLength?: number;
+  maxLength?: number;
 }) {
+  const id = useId();
   return (
     <div>
-      <label className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
-        {label}
+      <label htmlFor={id} className={labelClass}>
+        {label} {required && <RequiredMark />}
       </label>
       <input
-        name={name}
+        id={id}
         type={type}
-        placeholder={placeholder}
         required={required}
-        className="h-11 w-full rounded-lg border border-border bg-background px-3 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+        className={`h-11 ${controlClass}`}
+        {...inputProps}
       />
     </div>
   );

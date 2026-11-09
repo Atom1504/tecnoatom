@@ -10,12 +10,13 @@ export function CloudInfraestructuraPage() {
   return (
     <>
       <PageHero
-        eyebrow="Cloud & Infraestructura"
+        eyebrow="Cloud & infraestructura"
         title="Infraestructura escalable y siempre disponible"
         subtitle="Diseñamos, migramos y operamos entornos cloud de alto rendimiento. Paga solo por lo que consumes mientras garantizas que tu operación nunca se detenga."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "cloud-infraestructura" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Evaluar infraestructura <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function CloudInfraestructuraPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="Del servidor físico a la agilidad del Cloud"
             subtitle="Mantenemos tu plataforma rápida, segura y resiliente frente a picos de tráfico inesperados, sin que tengas que gestionar fierros."
           />
@@ -36,7 +37,7 @@ export function CloudInfraestructuraPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <Server className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Problema</h3>
+                <h3 className="text-xl font-semibold mb-3">El problema</h3>
                 <p className="text-muted-foreground flex-1">
                   Mantenimiento de servidores on-premise costosos, caídas de sistema en momentos pico y facturas de nube infladas por recursos mal configurados.
                 </p>
@@ -50,7 +51,7 @@ export function CloudInfraestructuraPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <Cloud className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Solución</h3>
+                <h3 className="text-xl font-semibold mb-3">La solución</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
                   Arquitectura cloud nativa (AWS, Azure, GCP). Sistemas elásticos que crecen cuando los necesitas y se reducen cuando no, automatizando el despliegue mediante prácticas DevOps.
                 </p>
@@ -61,7 +62,7 @@ export function CloudInfraestructuraPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
                   <Shield className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Resultado</h3>
+                <h3 className="text-xl font-semibold mb-3">El resultado</h3>
                 <p className="text-muted-foreground flex-1">
                   Tranquilidad operativa. Tu plataforma es tolerante a fallos, está respaldada ante desastres y los costos están estrictamente monitoreados y optimizados.
                 </p>
@@ -78,7 +79,7 @@ export function CloudInfraestructuraPage() {
             <div>
               <Reveal>
                 <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl mb-6">
-                  Arquitectura Cloud de Nivel Enterprise
+                  Arquitectura cloud de nivel enterprise
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8">
                   Implementamos soluciones modernas desde Serverless hasta orquestación de contenedores con Kubernetes, siempre priorizando la seguridad y eficiencia.
@@ -86,7 +87,7 @@ export function CloudInfraestructuraPage() {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { icon: Cloud, title: "Migración Cloud", desc: "Estrategias Lift & Shift o refactorización a nube nativa." },
+                  { icon: Cloud, title: "Migración cloud", desc: "Estrategias Lift & Shift o refactorización a nube nativa." },
                   { icon: Settings, title: "DevOps & CI/CD", desc: "Automatización de despliegues rápidos y seguros." },
                   { icon: Cpu, title: "Serverless & K8s", desc: "Arquitecturas elásticas basadas en microservicios." },
                   { icon: HardDrive, title: "Disaster Recovery", desc: "Políticas de backup y recuperación ante desastres." }
@@ -136,20 +137,20 @@ export function CloudInfraestructuraPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            title="FinOps y Eficiencia Operativa"
+            title="FinOps y eficiencia operativa"
             subtitle="Pasar a la nube no significa gastar más, significa gastar mejor. Maximizamos el rendimiento reduciendo los costos fijos."
           />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: "Optimización FinOps", text: "Auditamos tu facturación actual y eliminamos recursos zombis y sobredimensionados.", value: "-30%" },
-              { title: "Alta Disponibilidad", text: "Arquitectura tolerante a fallos para que tu negocio siga facturando pase lo que pase.", value: "99.9%" },
-              { title: "Elasticidad Real", text: "Tu plataforma se adapta en segundos a campañas masivas de marketing o Black Friday.", value: "Auto" },
-              { title: "Time to Market", text: "Con CI/CD, tu equipo lanza nuevas funcionalidades en minutos, no en meses.", value: "⚡" }
+              { title: "Alta disponibilidad", text: "Arquitectura tolerante a fallos para que tu negocio siga facturando pase lo que pase.", value: "99.9%" },
+              { title: "Elasticidad real", text: "Tu plataforma se adapta en segundos a campañas masivas de marketing o Black Friday." },
+              { title: "Time to market", text: "Con CI/CD, tu equipo lanza nuevas funcionalidades en minutos, no en meses." }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">{b.value}</div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -158,7 +159,7 @@ export function CloudInfraestructuraPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="cloud-infraestructura" />
     </>
   );
 }

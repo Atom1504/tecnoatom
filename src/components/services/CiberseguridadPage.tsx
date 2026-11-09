@@ -10,12 +10,13 @@ export function CiberseguridadPage() {
   return (
     <>
       <PageHero
-        eyebrow="Ciberseguridad Empresarial"
+        eyebrow="Ciberseguridad empresarial"
         title="Blindaje tecnológico frente a amenazas reales"
         subtitle="Detectamos vulnerabilidades críticas antes que los ciberdelincuentes. Protege la reputación de tu empresa, evita multas millonarias y asegura la continuidad de tu negocio."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "ciberseguridad" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Solicitar auditoría de seguridad <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function CiberseguridadPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="Una brecha de seguridad cuesta más que prevenirla"
             subtitle="Las defensas perimetrales tradicionales ya no son suficientes. Abordamos la seguridad desde el código hasta la capa de red."
           />
@@ -36,7 +37,7 @@ export function CiberseguridadPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <AlertTriangle className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Riesgo</h3>
+                <h3 className="text-xl font-semibold mb-3">El riesgo</h3>
                 <p className="text-muted-foreground flex-1">
                   Ransomware, filtración de datos de clientes y ataques dirigidos que paralizan la operación, destruyendo años de confianza y reputación.
                 </p>
@@ -50,7 +51,7 @@ export function CiberseguridadPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Defensa</h3>
+                <h3 className="text-xl font-semibold mb-3">La defensa</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
                   Hacking ético (Pentesting), endurecimiento de servidores (Hardening) y monitoreo proactivo para parchear vulnerabilidades antes de que sean explotadas.
                 </p>
@@ -61,7 +62,7 @@ export function CiberseguridadPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
                   <Lock className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Garantía</h3>
+                <h3 className="text-xl font-semibold mb-3">La garantía</h3>
                 <p className="text-muted-foreground flex-1">
                   Cumplimiento de estándares internacionales (ISO 27001, SOC2, PCI-DSS) y respuesta a incidentes lista para actuar en cualquier momento.
                 </p>
@@ -123,8 +124,8 @@ export function CiberseguridadPage() {
                 {[
                   { icon: ShieldAlert, title: "Pentesting", desc: "Pruebas de penetración controladas a tus redes y apps." },
                   { icon: Lock, title: "Hardening", desc: "Endurecimiento de servidores, APIs y bases de datos." },
-                  { icon: FileKey, title: "Políticas y Compliance", desc: "Adecuación a normativas (GDPR, PCI, ISO)." },
-                  { icon: Fingerprint, title: "Gestión de Identidades", desc: "Implementación de Zero Trust y MFA corporativo." }
+                  { icon: FileKey, title: "Políticas y compliance", desc: "Adecuación a normativas (GDPR, PCI, ISO)." },
+                  { icon: Fingerprint, title: "Gestión de identidades", desc: "Implementación de Zero Trust y MFA corporativo." }
                 ].map((item, i) => (
                   <Reveal key={i} delay={i * 0.1}>
                     <div className="flex gap-4 items-start p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors">
@@ -151,15 +152,15 @@ export function CiberseguridadPage() {
           />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Continuidad del Negocio", text: "Garantizamos que tu operación siga facturando sin interrupciones por ataques DDoS o Ransomware.", value: "24/7" },
-              { title: "Cero Multas", text: "Evita sanciones millonarias por incumplimiento de normativas de protección de datos de clientes.", value: "$0" },
-              { title: "Confianza de Clientes", text: "Demuestra a tus socios corporativos que sus datos están blindados bajo estrictos estándares.", value: "Trust" },
-              { title: "Respuesta Rápida", text: "Protocolos de contención que aíslan amenazas en minutos en caso de incidentes críticos.", value: "SLA" }
+              { title: "Continuidad del negocio", text: "Garantizamos que tu operación siga facturando sin interrupciones por ataques DDoS o Ransomware.", value: "24/7" },
+              { title: "Cero multas", text: "Evita sanciones millonarias por incumplimiento de normativas de protección de datos de clientes.", value: "$0" },
+              { title: "Confianza de clientes", text: "Demuestra a tus socios corporativos que sus datos están blindados bajo estrictos estándares." },
+              { title: "Respuesta rápida", text: "Protocolos de contención que aíslan amenazas en minutos en caso de incidentes críticos." }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">{b.value}</div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -168,7 +169,7 @@ export function CiberseguridadPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="ciberseguridad" />
     </>
   );
 }

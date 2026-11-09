@@ -1,10 +1,13 @@
+import { useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
+import { Pause, Play } from "lucide-react";
+import { prefersReducedMotion } from "@/lib/motion";
 
 const clients = [
   { name: "Koffy Lovers", logo: "/clientes/koffy.png", className: "scale-100" },
   { name: "Cámara de Comercio de Bucaramanga", logo: "/clientes/ccb.png", className: "scale-125" },
-  { name: "F", logo: "/clientes/f.png", className: "scale-[0.8]" },
+  { name: "FUTURA", logo: "/clientes/f.png", className: "scale-[0.8]" },
   { name: "I&M Ingeniería y Minerales S.A.S", logo: "/clientes/im.png", className: "scale-[1.8]" },
   { name: "Gavassa", logo: "/clientes/gavassa.png", className: "scale-150" },
   { name: "Aguardiente Superior", logo: "/clientes/superior.png", className: "scale-90" },
@@ -22,9 +25,38 @@ export function ClientsMarquee({
   title?: string;
 }) {
   const isDark = variant === "dark";
-  const [emblaRef] = useEmblaCarousel({ loop: true, dragFree: true }, [
-    AutoScroll({ playOnInit: true, speed: 0.8, stopOnInteraction: false, stopOnMouseEnter: true }),
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, dragFree: true }, [
+    AutoScroll({ playOnInit: false, speed: 0.8, stopOnInteraction: false }),
   ]);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const isHeld = isPaused || isHovered;
+  const isHeldRef = useRef(isHeld);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) setIsPaused(true);
+  }, []);
+
+  useEffect(() => {
+    const autoScroll = emblaApi?.plugins().autoScroll;
+    if (!emblaApi || !autoScroll) return;
+    // The plugin restarts itself after a drag, even while the carousel is paused.
+    const stayHeld = () => {
+      if (isHeldRef.current) queueMicrotask(autoScroll.stop);
+    };
+    emblaApi.on("autoScroll:play", stayHeld);
+    return () => {
+      emblaApi.off("autoScroll:play", stayHeld);
+    };
+  }, [emblaApi]);
+
+  useEffect(() => {
+    isHeldRef.current = isHeld;
+    const autoScroll = emblaApi?.plugins().autoScroll;
+    if (!autoScroll) return;
+    if (isHeld) autoScroll.stop();
+    else autoScroll.play();
+  }, [emblaApi, isHeld]);
 
   return (
     <section
@@ -42,17 +74,11 @@ export function ClientsMarquee({
           {title}
         </p>
       </div>
-      <div className="relative mt-8">
-        <div
-          className={`pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r ${
-            isDark ? "from-[oklch(0.18_0.05_285)] to-transparent" : "from-surface to-transparent"
-          }`}
-        />
-        <div
-          className={`pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l ${
-            isDark ? "from-[oklch(0.18_0.05_285)] to-transparent" : "from-surface to-transparent"
-          }`}
-        />
+      <div
+        className="mask-marquee-edges relative mt-8"
+        onPointerEnter={(event) => event.pointerType === "mouse" && setIsHovered(true)}
+        onPointerLeave={(event) => event.pointerType === "mouse" && setIsHovered(false)}
+      >
         <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
           <div className="flex touch-pan-y" style={{ willChange: "transform" }}>
             {clients.map((client, i) => (
@@ -72,9 +98,22 @@ export function ClientsMarquee({
           </div>
         </div>
       </div>
+      <div className="container-x relative z-10 mt-5 flex justify-center">
+        <button
+          type="button"
+          onClick={() => setIsPaused((paused) => !paused)}
+          className={`inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-medium transition ${
+            isDark
+              ? "text-white/70 hover:bg-white/10 hover:text-white"
+              : "text-muted-foreground hover:bg-surface-2 hover:text-foreground"
+          }`}
+        >
+          {isPaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
+          {isPaused ? "Reanudar carrusel" : "Pausar carrusel"}
+        </button>
+      </div>
     </section>
   );
 }
 
 export default ClientsMarquee;
-

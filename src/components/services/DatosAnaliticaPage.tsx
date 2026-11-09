@@ -10,12 +10,13 @@ export function DatosAnaliticaPage() {
   return (
     <>
       <PageHero
-        eyebrow="Datos & Analítica"
+        eyebrow="Datos & analítica"
         title="Decisiones basadas en evidencia, no en intuición"
         subtitle="Integramos, modelamos y visualizamos la información de toda tu empresa en tiempo real. Construye una única fuente de verdad y despídete de los reportes manuales contradictorios."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "datos-analitica" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Agendar consultoría de datos <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function DatosAnaliticaPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="Tus datos valen millones si sabes cómo leerlos"
             subtitle="La mayoría de empresas tienen toneladas de información paralizada. Nosotros la convertimos en un activo estratégico."
           />
@@ -36,7 +37,7 @@ export function DatosAnaliticaPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <Filter className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Problema</h3>
+                <h3 className="text-xl font-semibold mb-3">El problema</h3>
                 <p className="text-muted-foreground flex-1">
                   Silos de información, métricas que no cuadran entre departamentos, y directivos esperando semanas por un reporte en Excel que ya está obsoleto al recibirlo.
                 </p>
@@ -50,9 +51,9 @@ export function DatosAnaliticaPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <LineChart className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Solución</h3>
+                <h3 className="text-xl font-semibold mb-3">La solución</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
-                  Data Warehousing y pipelines ETL automatizados que alimentan Dashboards ejecutivos interactivos (Power BI, Looker, Tableau) en tiempo real.
+                  Data warehousing y pipelines ETL automatizados que alimentan Dashboards ejecutivos interactivos (Power BI, Looker, Tableau) en tiempo real.
                 </p>
               </div>
             </Reveal>
@@ -61,7 +62,7 @@ export function DatosAnaliticaPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
                   <Lightbulb className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Resultado</h3>
+                <h3 className="text-xl font-semibold mb-3">El resultado</h3>
                 <p className="text-muted-foreground flex-1">
                   Visibilidad 360° del negocio. Identificas tendencias, fugas de capital y oportunidades de crecimiento con un solo clic, impulsando una cultura Data-Driven.
                 </p>
@@ -123,10 +124,10 @@ export function DatosAnaliticaPage() {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { icon: Database, title: "Data Warehousing", desc: "Centralizamos tus bases de datos dispersas en un solo lugar." },
+                  { icon: Database, title: "Data warehousing", desc: "Centralizamos tus bases de datos dispersas en un solo lugar." },
                   { icon: Filter, title: "Pipelines ETL/ELT", desc: "Extracción, limpieza y transformación automática de datos." },
-                  { icon: PieChart, title: "Business Intelligence", desc: "Dashboards interactivos enfocados en KPIs estratégicos." },
-                  { icon: TrendingUp, title: "Análisis Predictivo", desc: "Modelos avanzados para prever demanda y comportamiento." }
+                  { icon: PieChart, title: "Business intelligence", desc: "Dashboards interactivos enfocados en KPIs estratégicos." },
+                  { icon: TrendingUp, title: "Análisis predictivo", desc: "Modelos avanzados para prever demanda y comportamiento." }
                 ].map((item, i) => (
                   <Reveal key={i} delay={i * 0.1}>
                     <div className="flex gap-4 items-start p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors">
@@ -153,15 +154,15 @@ export function DatosAnaliticaPage() {
           />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Decisiones Ágiles", text: "Responde a los cambios del mercado en horas, no en meses. Adiós a las juntas sin información clara.", value: "⚡" },
-              { title: "Única Verdad", text: "Alineación total entre Ventas, Marketing, Operaciones y Finanzas bajo los mismos indicadores.", value: "100%" },
-              { title: "Detección de Fugas", text: "Identifica inmediatamente dónde estás perdiendo dinero en tu cadena de suministro u operaciones.", value: "ROI" },
-              { title: "Ventaja Competitiva", text: "Entiende a tus clientes mejor que tu competencia mediante análisis de comportamiento profundo.", value: "Top" }
+              { title: "Decisiones ágiles", text: "Responde a los cambios del mercado en horas, no en meses. Adiós a las juntas sin información clara." },
+              { title: "Única verdad", text: "Alineación total entre Ventas, Marketing, Operaciones y Finanzas bajo los mismos indicadores.", value: "100%" },
+              { title: "Detección de fugas", text: "Identifica inmediatamente dónde estás perdiendo dinero en tu cadena de suministro u operaciones." },
+              { title: "Ventaja competitiva", text: "Entiende a tus clientes mejor que tu competencia mediante análisis de comportamiento profundo." }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">{b.value}</div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -170,7 +171,7 @@ export function DatosAnaliticaPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="datos-analitica" />
     </>
   );
 }

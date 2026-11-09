@@ -4,13 +4,14 @@ import { Reveal } from "@/components/ui-custom/Reveal";
 
 export function CTASection({
   title = "¿Listo para construir tu próxima ventaja competitiva?",
-  subtitle = "Hablemos. Te respondemos rápido y proponemos sin compromiso.",
-  primaryHref = "/contacto",
+  subtitle = "Hablemos. Te respondemos en menos de 24 horas hábiles y proponemos sin compromiso.",
+  service,
   primaryLabel = "Iniciar un proyecto",
 }: {
   title?: string;
   subtitle?: string;
-  primaryHref?: string;
+  /** Option preselected on the contact form. */
+  service?: string;
   primaryLabel?: string;
 }) {
   return (
@@ -30,7 +31,8 @@ export function CTASection({
             <p className="mt-4 text-pretty text-base text-white/75 sm:text-lg">{subtitle}</p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link
-                to={primaryHref}
+                to="/contacto"
+                search={{ servicio: service }}
                 className="group inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110 hover:-translate-y-0.5"
               >
                 {primaryLabel}

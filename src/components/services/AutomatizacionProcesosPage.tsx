@@ -10,12 +10,13 @@ export function AutomatizacionProcesosPage() {
   return (
     <>
       <PageHero
-        eyebrow="Automatización de Procesos"
+        eyebrow="Automatización de procesos"
         title="Flujos de trabajo que operan solos"
         subtitle="Elimina el trabajo manual repetitivo. Conectamos tus sistemas y diseñamos automatizaciones inteligentes para que tu equipo se enfoque en estrategias, no en hacer clics."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "automatizacion-procesos" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Descubrir qué automatizar <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function AutomatizacionProcesosPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="La velocidad es la nueva ventaja competitiva"
             subtitle="Si tus empleados actúan como robots copiando y pegando datos entre Excel y un CRM, estás perdiendo dinero y talento."
           />
@@ -36,7 +37,7 @@ export function AutomatizacionProcesosPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <Clock className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Problema</h3>
+                <h3 className="text-xl font-semibold mb-3">El problema</h3>
                 <p className="text-muted-foreground flex-1">
                   Procesos burocráticos, errores humanos costosos y horas facturables desperdiciadas en tareas administrativas de nulo valor agregado.
                 </p>
@@ -50,7 +51,7 @@ export function AutomatizacionProcesosPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <Workflow className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Solución</h3>
+                <h3 className="text-xl font-semibold mb-3">La solución</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
                   Interconectamos tus herramientas actuales vía API e implementamos bots (RPA) que ejecutan reglas de negocio 24/7 sin descanso ni errores.
                 </p>
@@ -61,7 +62,7 @@ export function AutomatizacionProcesosPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
                   <Zap className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Resultado</h3>
+                <h3 className="text-xl font-semibold mb-3">El resultado</h3>
                 <p className="text-muted-foreground flex-1">
                   Operaciones ultrarrápidas. Procesos que antes tomaban días enteros de revisión, ahora se completan en milisegundos de forma automática.
                 </p>
@@ -87,9 +88,9 @@ export function AutomatizacionProcesosPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   { icon: Network, title: "Integración de APIs", desc: "Sincronización en tiempo real entre CRMs, ERPs y plataformas." },
-                  { icon: Bot, title: "RPA y Bots", desc: "Software que simula interacciones humanas para sistemas legacy." },
-                  { icon: Layers, title: "Soluciones Low-Code", desc: "Desarrollo acelerado de flujos usando Power Automate o Make." },
-                  { icon: GitMerge, title: "Flujos de Aprobación", desc: "Sistemas digitales de firmas y auditoría sin usar papel." }
+                  { icon: Bot, title: "RPA y bots", desc: "Software que simula interacciones humanas para sistemas legacy." },
+                  { icon: Layers, title: "Soluciones low-code", desc: "Desarrollo acelerado de flujos usando Power Automate o Make." },
+                  { icon: GitMerge, title: "Flujos de aprobación", desc: "Sistemas digitales de firmas y auditoría sin usar papel." }
                 ].map((item, i) => (
                   <Reveal key={i} delay={i * 0.1}>
                     <div className="flex gap-4 items-start p-4 rounded-2xl bg-card border border-border/50 hover:border-primary/30 transition-colors">
@@ -151,7 +152,7 @@ export function AutomatizacionProcesosPage() {
                  <motion.div
                    animate={{ left: ["10%", "90%"], opacity: [0, 1, 0] }}
                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                   className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)] z-20"
+                   className="motion-reduce:hidden absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)] z-20"
                  />
               </div>
             </div>
@@ -169,14 +170,14 @@ export function AutomatizacionProcesosPage() {
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
               { title: "Productividad x10", text: "Tu equipo hace más con menos. Eliminas los cuellos de botella administrativos de forma definitiva.", value: "10x" },
-              { title: "Cero Errores", text: "El software no se cansa, no se distrae y no tipea mal. Precisión absoluta en la manipulación de datos.", value: "0%" },
-              { title: "Escalabilidad", text: "Si tus ventas se triplican mañana, tu backoffice automatizado soporta la carga sin contratar más personal.", value: "Scale" },
-              { title: "Ahorro de Costos", text: "Recuperación de la inversión (ROI) ultrarrápida al reemplazar horas-hombre por minutos-máquina.", value: "ROI" }
+              { title: "Cero errores", text: "El software no se cansa, no se distrae y no tipea mal. Precisión absoluta en la manipulación de datos.", value: "0%" },
+              { title: "Escalabilidad", text: "Si tus ventas se triplican mañana, tu backoffice automatizado soporta la carga sin contratar más personal." },
+              { title: "Ahorro de costos", text: "Recuperación de la inversión (ROI) ultrarrápida al reemplazar horas-hombre por minutos-máquina." }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">{b.value}</div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -185,7 +186,7 @@ export function AutomatizacionProcesosPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="automatizacion-procesos" />
     </>
   );
 }

@@ -1,10 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import logoLight from "@/assets/logo-tecnoatom-light.png";
 import logoDark from "@/assets/logo-tecnoatom-dark.png";
 import { services } from "@/data/services";
+
+const SERVICES_MENU_ID = "menu-servicios";
+const MOBILE_MENU_ID = "menu-movil";
 
 const mainLinks = [
   { to: "/", label: "Inicio" },
@@ -18,7 +21,15 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesToggleRef = useRef<HTMLButtonElement>(null);
+  const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // 404 and error screens have a light background, so the white logo and links would vanish.
+  const hasNoHero = useRouterState({
+    select: (s) =>
+      s.matches.some((m) => m.status === "notFound" || m.status === "error" || m.globalNotFound),
+  });
+  const solid = scrolled || hasNoHero;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -32,7 +43,31 @@ export function Navbar() {
     setServicesOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (!open && !servicesOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      if (servicesOpen) {
+        setServicesOpen(false);
+        servicesToggleRef.current?.focus();
+      }
+      if (open) {
+        setOpen(false);
+        mobileToggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, servicesOpen]);
+
   const isActive = (to: string) => pathname === to;
+  const servicesTextClass = pathname.startsWith("/servicios")
+    ? solid
+      ? "text-primary"
+      : "text-white"
+    : solid
+      ? "text-foreground hover:text-primary"
+      : "text-white/85 hover:text-white";
 
   return (
     <header
@@ -43,14 +78,12 @@ export function Navbar() {
       <div className="container-x">
         <div
           className={`flex items-center justify-between rounded-2xl border border-transparent px-4 py-2.5 transition-all duration-500 ${
-            scrolled
-              ? "glass border-border shadow-soft"
-              : "bg-transparent"
+            solid ? "glass border-border shadow-soft" : "bg-transparent"
           }`}
         >
           <Link to="/" className="flex items-center gap-2">
             <img
-              src={scrolled ? logoDark : logoLight}
+              src={solid ? logoDark : logoLight}
               alt="TECNOATOM"
               className="h-8 w-auto sm:h-9"
             />
@@ -58,27 +91,41 @@ export function Navbar() {
 
           <nav className="hidden items-center gap-1 lg:flex">
             {mainLinks.slice(0, 2).map((l) => (
-              <NavLink key={l.to} {...l} active={isActive(l.to)} scrolled={scrolled} />
+              <NavLink key={l.to} {...l} active={isActive(l.to)} solid={solid} />
             ))}
             <div
               className="relative"
-              onMouseEnter={() => setServicesOpen(true)}
-              onMouseLeave={() => setServicesOpen(false)}
+              onPointerEnter={(event) => event.pointerType === "mouse" && setServicesOpen(true)}
+              onPointerLeave={(event) => event.pointerType === "mouse" && setServicesOpen(false)}
+              onBlur={(event) => {
+                if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false);
+              }}
             >
-              <Link
-                to="/servicios"
-                className={`group flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition ${
-                  pathname.startsWith("/servicios")
-                    ? scrolled ? "text-primary" : "text-white"
-                    : scrolled ? "text-foreground hover:text-primary" : "text-white/85 hover:text-white"
-                }`}
-              >
-                Servicios
-                <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" />
-              </Link>
+              <div className="flex items-center">
+                <Link
+                  to="/servicios"
+                  className={`rounded-md py-2 pl-3 pr-1 text-sm font-medium transition ${servicesTextClass}`}
+                >
+                  Servicios
+                </Link>
+                <button
+                  ref={servicesToggleRef}
+                  type="button"
+                  aria-label="Mostrar servicios"
+                  aria-expanded={servicesOpen}
+                  aria-controls={servicesOpen ? SERVICES_MENU_ID : undefined}
+                  onClick={() => setServicesOpen((isOpen) => !isOpen)}
+                  className={`inline-flex h-9 w-6 items-center justify-center rounded-md transition ${servicesTextClass}`}
+                >
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform ${servicesOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+              </div>
               <AnimatePresence>
                 {servicesOpen && (
                   <motion.div
+                    id={SERVICES_MENU_ID}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
@@ -110,25 +157,33 @@ export function Navbar() {
               </AnimatePresence>
             </div>
             {mainLinks.slice(2).map((l) => (
-              <NavLink key={l.to} {...l} active={isActive(l.to)} scrolled={scrolled} />
+              <NavLink key={l.to} {...l} active={isActive(l.to)} solid={solid} />
             ))}
           </nav>
 
           <div className="hidden lg:block">
             <Link
               to="/contacto"
-              className="inline-flex h-10 items-center justify-center rounded-lg bg-gradient-primary px-5 text-sm font-medium text-primary-foreground shadow-elegant transition hover:shadow-glow hover:-translate-y-0.5"
+              className={`inline-flex h-10 items-center justify-center rounded-lg px-5 text-sm font-medium transition hover:-translate-y-0.5 ${
+                solid
+                  ? "bg-gradient-primary text-primary-foreground shadow-elegant hover:shadow-glow"
+                  : "bg-accent text-accent-foreground hover:brightness-110"
+              }`}
             >
               Cotizar proyecto
             </Link>
           </div>
 
           <button
+            ref={mobileToggleRef}
+            type="button"
             className={`inline-flex h-10 w-10 items-center justify-center rounded-lg lg:hidden ${
-              scrolled ? "text-foreground hover:bg-surface-2" : "text-white hover:bg-white/10"
+              solid ? "text-foreground hover:bg-surface-2" : "text-white hover:bg-white/10"
             }`}
-            onClick={() => setOpen((v) => !v)}
-            aria-label="Abrir menú"
+            onClick={() => setOpen((isOpen) => !isOpen)}
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={open}
+            aria-controls={open ? MOBILE_MENU_ID : undefined}
           >
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -138,13 +193,14 @@ export function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
+            id={MOBILE_MENU_ID}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
             className="container-x mt-2 lg:hidden relative z-50"
           >
-            <div className="bg-card border border-border rounded-2xl p-3 shadow-elegant">
+            <div className="max-h-[calc(100dvh-6rem)] overflow-y-auto bg-card border border-border rounded-2xl p-3 shadow-elegant">
               <div className="flex flex-col">
                 {mainLinks.slice(0, 2).map((l) => (
                   <Link
@@ -201,22 +257,22 @@ function NavLink({
   to,
   label,
   active,
-  scrolled,
+  solid,
 }: {
   to: string;
   label: string;
   active: boolean;
-  scrolled: boolean;
+  solid: boolean;
 }) {
   return (
     <Link
       to={to}
       className={`rounded-md px-3 py-2 text-sm font-medium transition ${
         active
-          ? scrolled
+          ? solid
             ? "text-primary"
             : "text-white"
-          : scrolled
+          : solid
             ? "text-foreground hover:text-primary"
             : "text-white/85 hover:text-white"
       }`}

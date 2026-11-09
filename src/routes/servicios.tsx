@@ -2,22 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/sections/PageHero";
 import { ServicesGrid } from "@/components/sections/ServicesGrid";
 import { ProcessSteps } from "@/components/sections/ProcessSteps";
-import { IndustriesStrip } from "@/components/sections/IndustriesStrip";
-import { MetricsBand } from "@/components/sections/MetricsBand";
 import { CTASection } from "@/components/sections/CTASection";
-import { ValuePillars } from "@/components/sections/ValuePillars";
-
-import { ClientsMarquee } from "@/components/sections/ClientsMarquee";
+import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/servicios")({
-  head: () => ({
-    meta: [
-      { title: "Servicios — TECNOATOM" },
-      { name: "description", content: "Servicios de desarrollo de software, consultoría TI, cloud, ciberseguridad, datos y más para empresas exigentes." },
-      { property: "og:title", content: "Servicios — TECNOATOM" },
-      { property: "og:description", content: "Catálogo de servicios profesionales en software empresarial." },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/servicios",
+      title: "Servicios — TECNOATOM",
+      description:
+        "Servicios de desarrollo de software, consultoría TI, cloud, ciberseguridad, datos y más para empresas exigentes.",
+    }),
   component: ServiciosPage,
 });
 
@@ -29,12 +24,8 @@ function ServiciosPage() {
         title="Soluciones para cada etapa de tu transformación"
         subtitle="Desde la primera línea de código hasta el dashboard de la junta directiva — tenemos un servicio pensado para cada momento."
       />
-      <ClientsMarquee />
-      <ServicesGrid />
-      <ValuePillars />
+      <ServicesGrid showEyebrow={false} />
       <ProcessSteps />
-      <MetricsBand />
-      <IndustriesStrip />
       <CTASection />
     </>
   );

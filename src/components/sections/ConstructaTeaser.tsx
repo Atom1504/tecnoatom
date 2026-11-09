@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
 import { ArrowRight, Building2, BarChart3, ClipboardCheck, Layers } from "lucide-react";
 import constructaBg from "@/assets/constructa-bg.jpg";
 import { Reveal } from "@/components/ui-custom/Reveal";
+import { ProgressBar } from "@/components/ui-custom/ProgressBar";
 
 const modules = [
   { icon: ClipboardCheck, label: "Control de presupuestos" },
@@ -52,19 +52,12 @@ export function ConstructaTeaser() {
 
             <div className="mt-8 grid grid-cols-2 gap-3">
               {modules.map((m, i) => (
-                <motion.div
-                  key={m.label}
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur"
-                >
+                <Reveal key={m.label} delay={i * 0.05} className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 backdrop-blur">
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary">
                     <m.icon className="h-4 w-4 text-white" />
                   </div>
                   <span className="text-sm font-medium text-white/90">{m.label}</span>
-                </motion.div>
+                </Reveal>
               ))}
             </div>
 
@@ -79,6 +72,7 @@ export function ConstructaTeaser() {
                 </Link>
                 <Link
                   to="/contacto"
+                  search={{ servicio: "constructa" }}
                   className="inline-flex h-12 items-center justify-center rounded-lg border border-white/20 bg-white/5 px-7 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
                 >
                   Solicitar demo
@@ -89,7 +83,7 @@ export function ConstructaTeaser() {
 
           <Reveal delay={0.15}>
             <div className="relative">
-              <div className="glass rounded-3xl border-white/10 p-6 shadow-glow">
+              <div className="glass-dark rounded-3xl p-6 shadow-glow">
                 <div className="flex items-center justify-between text-xs text-white/60">
                   <span>OBRA · Edificio Andina · Licitación 2024-038</span>
                   <span className="rounded-full bg-accent/20 px-2 py-0.5 text-accent">En curso</span>
@@ -98,7 +92,7 @@ export function ConstructaTeaser() {
                   {[
                     { k: "78%", v: "Avance físico" },
                     { k: "64%", v: "Avance financiero" },
-                    { k: "$2.1B", v: "Ejecutado" },
+                    { k: "$2.100 M", v: "Ejecutado" },
                   ].map((kpi) => (
                     <div key={kpi.v} className="rounded-xl bg-white/5 p-3">
                       <div className="text-xl font-semibold text-white">{kpi.k}</div>
@@ -120,18 +114,11 @@ export function ConstructaTeaser() {
                         <span>{p.name}</span>
                         <span>{p.value}%</span>
                       </div>
-                      <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-white/10">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${p.value}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, ease: "easeOut" }}
-                          className="h-full rounded-full bg-gradient-to-r from-primary-glow to-accent"
-                        />
-                      </div>
+                      <ProgressBar value={p.value} colorClass="from-primary-glow to-accent" />
                     </div>
                   ))}
                 </div>
+                <p className="mt-4 text-[11px] text-white/55">Datos ilustrativos</p>
               </div>
               <div
                 aria-hidden

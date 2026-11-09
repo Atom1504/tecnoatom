@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { MapPin, Phone, Mail, Linkedin, Facebook, Instagram } from "lucide-react";
+import { Instagram, MapPin, Phone, Mail } from "lucide-react";
 import logoLight from "@/assets/logo-tecnoatom-light.png";
+import { WhatsAppIcon } from "@/components/ui-custom/WhatsAppIcon";
 import { services } from "@/data/services";
+import { CONTACT } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -19,28 +21,34 @@ export function Footer() {
             <div className="mt-6 space-y-3 text-sm text-white/80">
               <div className="flex items-start gap-3">
                 <MapPin className="mt-0.5 h-4 w-4 text-accent" />
-                <span>Cl 36 #27-71, Mejoras Públicas, Bucaramanga, Santander</span>
+                <span>{CONTACT.address}</span>
               </div>
-              <a href="tel:+573142671185" className="flex items-center gap-3 hover:text-white">
+              <a
+                href={CONTACT.whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 hover:text-white"
+              >
+                <WhatsAppIcon className="h-4 w-4 text-accent" />
+                WhatsApp
+              </a>
+              <a href={CONTACT.phoneHref} className="flex items-center gap-3 hover:text-white">
                 <Phone className="h-4 w-4 text-accent" />
-                +57 314 267 1185
+                {CONTACT.phone}
               </a>
-              <a href="mailto:contacto@tecnoatom.com" className="flex items-center gap-3 hover:text-white">
+              <a href={CONTACT.emailHref} className="flex items-center gap-3 hover:text-white">
                 <Mail className="h-4 w-4 text-accent" />
-                contacto@tecnoatom.com
+                {CONTACT.email}
               </a>
-            </div>
-            <div className="mt-6 flex items-center gap-2">
-              {[Linkedin, Facebook, Instagram].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 transition hover:border-accent hover:text-accent"
-                  aria-label="Red social"
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
-              ))}
+              <a
+                href={CONTACT.instagramHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 hover:text-white"
+              >
+                <Instagram className="h-4 w-4 text-accent" />
+                {CONTACT.instagramHandle}
+              </a>
             </div>
           </div>
 
@@ -57,7 +65,7 @@ export function Footer() {
           <div className="lg:col-span-3">
             <h4 className="text-sm font-semibold uppercase tracking-[0.18em] text-white">Servicios</h4>
             <ul className="mt-4 space-y-2.5 text-sm text-white/70">
-              {services.slice(0, 6).map((s) => (
+              {services.map((s) => (
                 <li key={s.slug}>
                   <Link to="/servicios/$slug" params={{ slug: s.slug }} className="hover:text-accent">
                     {s.title}
@@ -85,8 +93,13 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-3 border-t border-white/10 pt-6 text-xs text-white/55 sm:flex-row sm:items-center">
-          <p>© {new Date().getFullYear()} TECNOATOM · Empresa de Software. Todos los derechos reservados.</p>
-          <p>Bucaramanga · Colombia</p>
+          <p>© {new Date().getFullYear()} TECNOATOM · Empresa de software. Todos los derechos reservados.</p>
+          <div className="flex items-center gap-4">
+            <Link to="/politica-de-datos" className="underline-offset-2 hover:text-white hover:underline">
+              Política de tratamiento de datos
+            </Link>
+            <span>Bucaramanga · Colombia</span>
+          </div>
         </div>
       </div>
     </footer>

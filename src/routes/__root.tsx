@@ -8,11 +8,49 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { MotionConfig } from "framer-motion";
 import { useEffect } from "react";
 
 import appCss from "../styles.css?url";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { seo } from "@/lib/seo";
+import { CONTACT, OG_IMAGE_URL, SITE_NAME, SITE_URL } from "@/lib/site";
+
+const DEFAULT_DESCRIPTION =
+  "Desarrollo de software, consultoría TI, cloud, ciberseguridad y Constructa ERP para la industria de la construcción. Bucaramanga, Colombia.";
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${SITE_URL}/#organizacion`,
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon.png`,
+  image: OG_IMAGE_URL,
+  description: DEFAULT_DESCRIPTION,
+  telephone: "+573142671185",
+  email: CONTACT.email,
+  sameAs: [CONTACT.instagramHref],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Cl 36 #27-71, Mejoras Públicas",
+    addressLocality: "Bucaramanga",
+    addressRegion: "Santander",
+    addressCountry: "CO",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "08:00",
+    closes: "18:00",
+  },
+};
+
+// Framer Motion renders its initial state inline, which would stay hidden without JavaScript.
+const NO_SCRIPT_CSS =
+  '[style*="opacity:0"]{opacity:1!important}[style*="transform:"]{transform:none!important}[style*="clip-path"]{clip-path:none!important}';
 
 function NotFoundComponent() {
   return (
@@ -73,27 +111,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "TECNOATOM — Soluciones Empresariales de Software" },
-      {
-        name: "description",
-        content:
-          "Desarrollo de software, consultoría TI, cloud, ciberseguridad y Constructa ERP para la industria de la construcción. Bucaramanga, Colombia.",
-      },
-      { name: "author", content: "TECNOATOM" },
-      { property: "og:title", content: "TECNOATOM — Soluciones Empresariales de Software" },
-      {
-        property: "og:description",
-        content:
-          "Empresa de software especializada en soluciones empresariales y Constructa ERP para construcción.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "TECNOATOM — Soluciones Empresariales de Software" },
-      { name: "description", content: "Tecnoatom Solutions Hub is a dynamic, responsive website showcasing business solutions and ERP software." },
-      { property: "og:description", content: "Tecnoatom Solutions Hub is a dynamic, responsive website showcasing business solutions and ERP software." },
-      { name: "twitter:description", content: "Tecnoatom Solutions Hub is a dynamic, responsive website showcasing business solutions and ERP software." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/378e740c-b6f0-40e8-9c2a-ca2c8281591c/id-preview-68c18816--cca6e579-db63-45ec-86b3-40dd2ce4fd2b.lovable.app-1778912187290.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/378e740c-b6f0-40e8-9c2a-ca2c8281591c/id-preview-68c18816--cca6e579-db63-45ec-86b3-40dd2ce4fd2b.lovable.app-1778912187290.png" },
+      { name: "author", content: SITE_NAME },
+      ...seo({
+        title: "TECNOATOM — Soluciones empresariales de software",
+        description: DEFAULT_DESCRIPTION,
+      }).meta,
     ],
     links: [
       { rel: "icon", type: "image/png", href: "/favicon.png" },
@@ -105,6 +127,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap",
       },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify(organizationJsonLd) }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -117,6 +140,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="es">
       <head>
         <HeadContent />
+        <noscript>
+          <style dangerouslySetInnerHTML={{ __html: NO_SCRIPT_CSS }} />
+        </noscript>
       </head>
       <body>
         {children}
@@ -138,12 +164,15 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <ScrollToTop />
-      <Navbar />
-      <main className="min-h-screen pt-20">
-        <Outlet />
-      </main>
-      <Footer />
+      <MotionConfig reducedMotion="user">
+        <ScrollToTop />
+        <Navbar />
+        <main className="min-h-screen pt-20">
+          <Outlet />
+        </main>
+        <Footer />
+        <WhatsAppButton />
+      </MotionConfig>
     </QueryClientProvider>
   );
 }

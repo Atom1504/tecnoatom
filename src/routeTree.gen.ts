@@ -11,12 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as PoliticaDeDatosRouteImport } from './routes/politica-de-datos'
 import { Route as NosotrosRouteImport } from './routes/nosotros'
 import { Route as IndustriasRouteImport } from './routes/industrias'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as ConstructaRouteImport } from './routes/constructa'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServiciosSlugRouteImport } from './routes/servicios_.$slug'
+import { Route as ApiContactoRouteImport } from './routes/api.contacto'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -26,6 +28,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
   path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDeDatosRoute = PoliticaDeDatosRouteImport.update({
+  id: '/politica-de-datos',
+  path: '/politica-de-datos',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NosotrosRoute = NosotrosRouteImport.update({
@@ -58,6 +65,11 @@ const ServiciosSlugRoute = ServiciosSlugRouteImport.update({
   path: '/servicios/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiContactoRoute = ApiContactoRouteImport.update({
+  id: '/api/contacto',
+  path: '/api/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,8 +77,10 @@ export interface FileRoutesByFullPath {
   '/contacto': typeof ContactoRoute
   '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
+  '/politica-de-datos': typeof PoliticaDeDatosRoute
   '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/contacto': typeof ApiContactoRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesByTo {
@@ -75,8 +89,10 @@ export interface FileRoutesByTo {
   '/contacto': typeof ContactoRoute
   '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
+  '/politica-de-datos': typeof PoliticaDeDatosRoute
   '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/contacto': typeof ApiContactoRoute
   '/servicios/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRoutesById {
@@ -86,8 +102,10 @@ export interface FileRoutesById {
   '/contacto': typeof ContactoRoute
   '/industrias': typeof IndustriasRoute
   '/nosotros': typeof NosotrosRoute
+  '/politica-de-datos': typeof PoliticaDeDatosRoute
   '/servicios': typeof ServiciosRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/contacto': typeof ApiContactoRoute
   '/servicios_/$slug': typeof ServiciosSlugRoute
 }
 export interface FileRouteTypes {
@@ -98,8 +116,10 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/industrias'
     | '/nosotros'
+    | '/politica-de-datos'
     | '/servicios'
     | '/sitemap.xml'
+    | '/api/contacto'
     | '/servicios/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -108,8 +128,10 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/industrias'
     | '/nosotros'
+    | '/politica-de-datos'
     | '/servicios'
     | '/sitemap.xml'
+    | '/api/contacto'
     | '/servicios/$slug'
   id:
     | '__root__'
@@ -118,8 +140,10 @@ export interface FileRouteTypes {
     | '/contacto'
     | '/industrias'
     | '/nosotros'
+    | '/politica-de-datos'
     | '/servicios'
     | '/sitemap.xml'
+    | '/api/contacto'
     | '/servicios_/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -129,8 +153,10 @@ export interface RootRouteChildren {
   ContactoRoute: typeof ContactoRoute
   IndustriasRoute: typeof IndustriasRoute
   NosotrosRoute: typeof NosotrosRoute
+  PoliticaDeDatosRoute: typeof PoliticaDeDatosRoute
   ServiciosRoute: typeof ServiciosRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiContactoRoute: typeof ApiContactoRoute
   ServiciosSlugRoute: typeof ServiciosSlugRoute
 }
 
@@ -148,6 +174,13 @@ declare module '@tanstack/react-router' {
       path: '/servicios'
       fullPath: '/servicios'
       preLoaderRoute: typeof ServiciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-datos': {
+      id: '/politica-de-datos'
+      path: '/politica-de-datos'
+      fullPath: '/politica-de-datos'
+      preLoaderRoute: typeof PoliticaDeDatosRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nosotros': {
@@ -192,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiciosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/contacto': {
+      id: '/api/contacto'
+      path: '/api/contacto'
+      fullPath: '/api/contacto'
+      preLoaderRoute: typeof ApiContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -201,8 +241,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContactoRoute: ContactoRoute,
   IndustriasRoute: IndustriasRoute,
   NosotrosRoute: NosotrosRoute,
+  PoliticaDeDatosRoute: PoliticaDeDatosRoute,
   ServiciosRoute: ServiciosRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiContactoRoute: ApiContactoRoute,
   ServiciosSlugRoute: ServiciosSlugRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,35 +1,35 @@
-import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
+import { useLayoutEffect, useRef, type ReactNode } from "react";
+import { canAnimateEntrance, onFirstVisible } from "@/lib/motion";
 
 type RevealProps = {
   children: ReactNode;
   delay?: number;
-  y?: number;
   className?: string;
-  once?: boolean;
+  as?: "div" | "li";
 };
 
-const variants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (i: number = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i },
-  }),
-};
+/**
+ * The server HTML is always visible. After hydration, only blocks still below the fold
+ * are hidden and then animated in, so content never depends on JavaScript to appear.
+ */
+export function Reveal({ children, delay = 0, className, as: Tag = "div" }: RevealProps) {
+  const ref = useRef<HTMLDivElement & HTMLLIElement>(null);
 
-export function Reveal({ children, delay = 0, className, once = true }: RevealProps) {
+  useLayoutEffect(() => {
+    const element = ref.current;
+    if (!element || !canAnimateEntrance(element)) return;
+
+    element.style.setProperty("--reveal-delay", `${delay}s`);
+    element.dataset.reveal = "hidden";
+    return onFirstVisible(element, () => {
+      element.dataset.reveal = "visible";
+    });
+  }, [delay]);
+
   return (
-    <motion.div
-      className={className}
-      variants={variants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount: 0.2 }}
-      custom={delay}
-    >
+    <Tag ref={ref} className={className}>
       {children}
-    </motion.div>
+    </Tag>
   );
 }
 

@@ -1,51 +1,59 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Target, Eye, Heart, Award, Users, Lightbulb, Rocket, Briefcase, MonitorSmartphone, TrendingUp } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+import { Target, Eye, Heart, Award, Users, Lightbulb } from "lucide-react";
 import { PageHero } from "@/components/sections/PageHero";
 import { SectionHeading } from "@/components/ui-custom/SectionHeading";
 import { Reveal } from "@/components/ui-custom/Reveal";
 import { MetricsBand } from "@/components/sections/MetricsBand";
 import { CTASection } from "@/components/sections/CTASection";
 import aboutTeam from "@/assets/about-team.jpg";
+import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/nosotros")({
-  head: () => ({
-    meta: [
-      { title: "Nosotros — TECNOATOM" },
-      { name: "description", content: "Conoce a TECNOATOM: equipo, misión, visión y valores de una empresa de software con propósito." },
-      { property: "og:title", content: "Nosotros — TECNOATOM" },
-      { property: "og:description", content: "Equipo, misión y visión de TECNOATOM." },
-    ],
-  }),
+  head: () =>
+    seo({
+      path: "/nosotros",
+      title: "Nosotros — TECNOATOM",
+      description:
+        "Conoce a TECNOATOM: equipo, misión, visión y valores de una empresa de software con propósito.",
+    }),
   component: NosotrosPage,
 });
 
-const timeline = [
+type Milestone = {
+  label: string;
+  period: string;
+  title: string;
+  text: string;
+  isPresent?: boolean;
+};
+
+const timeline: Milestone[] = [
   {
-    period: "Enero 2024",
-    title: "El Inicio",
+    label: "2024",
+    period: "Enero",
+    title: "El inicio",
     text: "Nace TECNOATOM en Bucaramanga con una misión clara: transformar el desarrollo de software y crear plataformas de alto impacto.",
-    icon: Rocket
   },
   {
-    period: "Abril 2024",
-    title: "Primeros Grandes Proyectos",
+    label: "2024",
+    period: "Abril",
+    title: "Primeros grandes proyectos",
     text: "Comenzamos a trabajar con empresas medianas, desarrollando soluciones a medida que marcaron nuestros primeros casos de éxito.",
-    icon: Briefcase
   },
   {
-    period: "Agosto 2024",
+    label: "2024",
+    period: "Agosto",
     title: "Lanzamiento de Constructa",
     text: "Liberamos la primera versión de nuestro ERP insignia, diseñado específicamente para revolucionar la gestión en el sector construcción.",
-    icon: MonitorSmartphone
   },
   {
+    label: "En curso",
     period: "Hoy",
-    title: "Escalando el Futuro",
+    title: "Escalando el futuro",
     text: "Un equipo consolidado, infraestructura 100% cloud y una cartera de clientes en crecimiento continuo a nivel nacional.",
-    icon: TrendingUp
-  }
+    isPresent: true,
+  },
 ];
 
 const valores = [
@@ -73,19 +81,17 @@ function NosotrosPage() {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/40 to-transparent mix-blend-overlay z-10 transition-opacity duration-700 group-hover:opacity-0" />
               <img 
                 src={aboutTeam} 
-                alt="Equipo TECNOATOM" 
+                alt=""
                 className="h-[400px] sm:h-[500px] w-full object-cover transition-transform duration-1000 group-hover:scale-105" 
                 loading="lazy" 
               />
               
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-20 rounded-2xl bg-black/40 backdrop-blur-md p-4 sm:p-5 border border-white/20 shadow-glow"
+              <div
+                className="animate-float [animation-duration:4s] absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-20 rounded-2xl bg-black/40 backdrop-blur-md p-4 sm:p-5 border border-white/20 shadow-glow"
               >
                 <div className="text-3xl sm:text-4xl font-bold text-white">2024</div>
                 <div className="text-[10px] sm:text-xs text-white/80 uppercase tracking-widest mt-1">Año de fundación</div>
-              </motion.div>
+              </div>
             </div>
           </Reveal>
           <Reveal delay={0.2}>
@@ -108,14 +114,7 @@ function NosotrosPage() {
             { icon: Eye, title: "Visión", text: "Ser referente latinoamericano en software empresarial y en plataformas verticales especializadas como Constructa." },
             { icon: Heart, title: "Promesa", text: "Software excelente, equipos comprometidos y resultados tangibles que impactan positivamente el balance financiero." },
           ].map((b, i) => (
-            <motion.div
-              key={b.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, type: "spring" }}
-              className="group relative overflow-hidden rounded-[2rem] border border-border bg-card p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-elegant"
-            >
+            <Reveal key={b.title} delay={i * 0.1} className="group relative overflow-hidden rounded-[2rem] border border-border bg-card p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:shadow-elegant">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
               <div className="relative z-10">
                 <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-primary text-primary-foreground shadow-soft transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
@@ -124,12 +123,12 @@ function NosotrosPage() {
                 <h3 className="mt-6 text-2xl font-bold">{b.title}</h3>
                 <p className="mt-3 text-base text-muted-foreground leading-relaxed">{b.text}</p>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </section>
 
-      <AnimatedTimeline />
+      <Timeline />
 
       {/* VALORES - Re-estilizados */}
       <section className="bg-surface py-16 sm:py-24 relative">
@@ -138,106 +137,153 @@ function NosotrosPage() {
           <SectionHeading eyebrow="Lo que nos mueve" title="Valores que practicamos a diario" />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {valores.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group relative rounded-3xl border border-border bg-card p-8 text-center transition-all duration-300 hover:border-primary/20 hover:shadow-soft"
-              >
+              <Reveal key={v.title} delay={i * 0.08} className="group relative rounded-3xl border border-border bg-card p-8 text-center transition-all duration-300 hover:border-primary/20 hover:shadow-soft">
                 <div className="absolute inset-x-0 top-0 h-1 origin-center scale-x-0 bg-gradient-primary transition-transform duration-500 group-hover:scale-x-100 rounded-t-3xl" />
                 <div className="mx-auto inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                   <v.icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-5 text-lg font-semibold">{v.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{v.text}</p>
-              </motion.div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       <MetricsBand />
-      <CTASection title="Trabajemos juntos" subtitle="Tenemos el equipo, la experiencia y la pasión. Sólo falta tu reto." />
+      <CTASection title="Trabajemos juntos" subtitle="Tenemos el equipo, la experiencia y la pasión. Solo falta tu reto." />
     </>
   );
 }
 
-function AnimatedTimeline() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end 80%"]
-  });
+const stopsVariants: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.3 } },
+};
 
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+const fadeUpVariants: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
 
+const nodeVariants: Variants = {
+  hidden: { scale: 0 },
+  visible: { scale: 1, transition: { type: "spring", stiffness: 320, damping: 20 } },
+};
+
+// clip-path draws the segment along whichever axis it has: down on mobile, right on desktop.
+const segmentVariants: Variants = {
+  hidden: { clipPath: "inset(0% 100% 100% 0%)" },
+  visible: {
+    clipPath: "inset(0% 0% 0% 0%)",
+    transition: { duration: 0.5, delay: 0.1, ease: "easeInOut" },
+  },
+};
+
+function Timeline() {
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden" ref={containerRef}>
-      <div className="container-x relative z-10">
-        <SectionHeading 
-          eyebrow="Nuestra Historia" 
-          title="El camino recorrido" 
-          subtitle="De una gran idea a una empresa consolidada en tiempo récord durante 2024." 
+    <section className="py-16 sm:py-24">
+      <div className="container-x">
+        <SectionHeading
+          eyebrow="Trayectoria"
+          title="El camino recorrido"
+          subtitle="Desde 2024, de una gran idea a una empresa consolidada."
+          align="left"
         />
-        
-        <div className="relative mt-20 sm:mt-24 mx-auto max-w-4xl">
-          {/* Background Line */}
-          <div className="absolute left-[31px] top-0 bottom-0 w-0.5 bg-border lg:left-1/2 lg:-translate-x-1/2" />
-          
-          {/* Animated Scroll Line */}
-          <motion.div 
-            className="absolute left-[31px] top-0 w-0.5 bg-gradient-primary lg:left-1/2 lg:-translate-x-1/2 origin-top"
-            style={{ height: lineHeight }}
-          />
 
-          <div className="space-y-8 sm:space-y-12">
-            {timeline.map((item, i) => (
-              <TimelineItem key={i} item={item} index={i} />
-            ))}
-          </div>
-        </div>
+        <motion.ol
+          className="mt-14 sm:mt-20 lg:grid lg:grid-cols-4"
+          variants={stopsVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-120px" }}
+        >
+          {timeline.map((milestone, index) => (
+            <TimelineStop
+              key={milestone.period}
+              milestone={milestone}
+              reachesPresent={index === timeline.length - 2}
+            />
+          ))}
+        </motion.ol>
       </div>
     </section>
   );
 }
 
-function TimelineItem({ item, index }: { item: any, index: number }) {
-  const isEven = index % 2 === 0;
+function TimelineStop({
+  milestone,
+  reachesPresent,
+}: {
+  milestone: Milestone;
+  reachesPresent: boolean;
+}) {
+  const { label, period, title, text, isPresent } = milestone;
+  const segmentColor = reachesPresent
+    ? "from-primary-glow to-accent"
+    : "from-primary to-primary-glow";
 
   return (
-    <div className="relative pl-20 lg:pl-0 lg:grid lg:grid-cols-2 lg:gap-12 items-center group">
-      {/* Node / Icon */}
-      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-16 flex justify-center lg:left-1/2 lg:-translate-x-1/2 z-10">
-        <motion.div 
-          initial={{ scale: 0, rotate: -90 }}
-          whileInView={{ scale: 1, rotate: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-background border-2 border-border shadow-glow flex items-center justify-center text-primary z-10 transition-all duration-500 group-hover:scale-110 group-hover:border-primary group-hover:bg-primary/5 group-hover:shadow-elegant"
+    <motion.li
+      variants={stopsVariants}
+      className="grid grid-cols-[1rem_1fr] gap-x-5 lg:grid-cols-1 lg:content-start lg:gap-x-0"
+    >
+      <motion.div
+        variants={fadeUpVariants}
+        className="motion-reveal col-start-2 row-start-1 lg:col-start-1 lg:pr-8"
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          {label}
+        </p>
+        <p
+          className={`mt-1 font-display text-4xl font-semibold tracking-tight sm:text-5xl xl:text-6xl ${
+            isPresent ? "text-gradient" : ""
+          }`}
         >
-          <item.icon className="h-5 w-5 sm:h-6 sm:w-6" />
-        </motion.div>
+          {period}
+        </p>
+      </motion.div>
+
+      <div
+        className="col-start-1 row-span-2 row-start-1 flex flex-col items-center lg:row-span-1 lg:row-start-2 lg:my-7 lg:flex-row"
+        aria-hidden
+      >
+        <motion.span
+          variants={nodeVariants}
+          className="motion-reveal relative z-10 mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center lg:mt-0"
+        >
+          {isPresent && (
+            <span className="absolute inset-0 animate-ping rounded-full bg-accent/60 motion-reduce:animate-none" />
+          )}
+          <span
+            className={`relative h-3 w-3 rounded-full ${isPresent ? "bg-accent" : "bg-primary"}`}
+          />
+        </motion.span>
+
+        {isPresent ? (
+          <motion.span
+            variants={segmentVariants}
+            className="motion-reveal timeline-future hidden flex-1 border-t-2 border-dashed border-accent lg:block"
+          />
+        ) : (
+          <motion.span
+            variants={segmentVariants}
+            className={`motion-reveal w-0.5 flex-1 bg-gradient-to-b lg:h-0.5 lg:w-auto lg:bg-gradient-to-r ${segmentColor}`}
+          />
+        )}
       </div>
 
-      {/* Content Column */}
-      <div className={`${isEven ? "lg:col-start-1 lg:text-right" : "lg:col-start-2 lg:text-left"}`}>
-        <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
-          className="relative p-6 sm:p-8 rounded-3xl bg-card border border-border shadow-soft transition-all duration-300 group-hover:shadow-elegant group-hover:-translate-y-1"
-        >
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-          <div className="inline-flex items-center rounded-full bg-primary/10 px-4 py-1.5 text-[10px] sm:text-xs font-bold uppercase tracking-wider text-primary mb-3 sm:mb-4 ring-1 ring-primary/20">
-            {item.period}
-          </div>
-          <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">{item.title}</h3>
-          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{item.text}</p>
-        </motion.div>
-      </div>
-    </div>
+      <motion.div
+        variants={fadeUpVariants}
+        className={`motion-reveal col-start-2 row-start-2 pt-3 lg:col-start-1 lg:row-start-3 lg:pb-0 lg:pr-10 lg:pt-0 ${
+          isPresent ? "" : "pb-12"
+        }`}
+      >
+        <h3 className="text-balance text-lg font-semibold sm:text-xl lg:min-h-14 xl:min-h-0">
+          {title}
+        </h3>
+        <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{text}</p>
+      </motion.div>
+    </motion.li>
   );
 }

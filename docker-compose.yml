@@ -12,6 +12,10 @@ services:
       - "4173"
     environment:
       - NODE_ENV=production
+      # Formulario de contacto: los valores salen del archivo .env (ver .env.example)
+      - RESEND_API_KEY=${RESEND_API_KEY:-}
+      - CONTACT_EMAIL_FROM=${CONTACT_EMAIL_FROM:-}
+      - CONTACT_EMAIL_TO=${CONTACT_EMAIL_TO:-contacto@tecnoatom.com}
 
   # Caddy actuará como Reverse Proxy y generará automáticamente los certificados SSL
   caddy:

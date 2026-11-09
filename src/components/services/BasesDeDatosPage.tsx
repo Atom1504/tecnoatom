@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Database, ServerCrash, Gauge, ShieldCheck, Activity, HardDrive, RefreshCw, Zap } from "lucide-react";
+import { ArrowRight, Database, ServerCrash, Gauge, ShieldCheck, Activity, HardDrive, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 import { PageHero } from "@/components/sections/PageHero";
 import { Reveal } from "@/components/ui-custom/Reveal";
@@ -10,12 +10,13 @@ export function BasesDeDatosPage() {
   return (
     <>
       <PageHero
-        eyebrow="Gestión de Bases de Datos"
+        eyebrow="Gestión de bases de datos"
         title="El motor de tu empresa, siempre a máxima velocidad"
         subtitle="Arquitectura, optimización y administración (DBA) de bases de datos críticas. Consultas en milisegundos, escalabilidad sin límites y cero pérdida de información."
       >
         <Link
           to="/contacto"
+          search={{ servicio: "bases-de-datos" }}
           className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-7 text-sm font-semibold text-accent-foreground transition hover:brightness-110"
         >
           Evaluar rendimiento actual <ArrowRight className="h-4 w-4" />
@@ -26,7 +27,7 @@ export function BasesDeDatosPage() {
       <section className="py-24">
         <div className="container-x">
           <SectionHeading
-            eyebrow="Propuesta de Valor"
+            eyebrow="Propuesta de valor"
             title="La lentitud cuesta dinero. Las caídas cuestan reputación."
             subtitle="Una aplicación es tan rápida y confiable como la base de datos que la sostiene. Resolvemos el origen técnico de tus cuellos de botella."
           />
@@ -36,7 +37,7 @@ export function BasesDeDatosPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-500">
                   <ServerCrash className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Problema</h3>
+                <h3 className="text-xl font-semibold mb-3">El problema</h3>
                 <p className="text-muted-foreground flex-1">
                   Sistemas que se congelan cuando hay muchos usuarios, consultas que tardan minutos en cargar, y el riesgo constante de perder datos por falta de respaldos.
                 </p>
@@ -50,7 +51,7 @@ export function BasesDeDatosPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-primary text-primary-foreground">
                   <Database className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">La Solución</h3>
+                <h3 className="text-xl font-semibold mb-3">La solución</h3>
                 <p className="text-foreground/80 flex-1 relative z-10">
                   Auditoría profunda, reestructuración de índices, afinación de consultas (Tuning) y arquitecturas en clúster para alta disponibilidad.
                 </p>
@@ -61,7 +62,7 @@ export function BasesDeDatosPage() {
                 <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-500">
                   <Gauge className="h-6 w-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">El Resultado</h3>
+                <h3 className="text-xl font-semibold mb-3">El resultado</h3>
                 <p className="text-muted-foreground flex-1">
                   Aplicaciones que responden instantáneamente sin importar la carga. Datos íntegros, respaldados y listos para escalar junto con el negocio.
                 </p>
@@ -133,9 +134,9 @@ export function BasesDeDatosPage() {
               </Reveal>
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
-                  { icon: Gauge, title: "Performance Tuning", desc: "Optimización de consultas lentas e indexación avanzada." },
-                  { icon: ShieldCheck, title: "Alta Disponibilidad", desc: "Clústers, replicación activa y arquitecturas multi-región." },
-                  { icon: HardDrive, title: "Migraciones Zero-Downtime", desc: "Cambio de motores (ej: Oracle a PostgreSQL) sin apagar tu app." },
+                  { icon: Gauge, title: "Performance tuning", desc: "Optimización de consultas lentas e indexación avanzada." },
+                  { icon: ShieldCheck, title: "Alta disponibilidad", desc: "Clústers, replicación activa y arquitecturas multi-región." },
+                  { icon: HardDrive, title: "Migraciones zero-downtime", desc: "Cambio de motores (ej: Oracle a PostgreSQL) sin apagar tu app." },
                   { icon: Activity, title: "DBA As-a-Service", desc: "Monitoreo 24/7 y mantenimiento preventivo continuo." }
                 ].map((item, i) => (
                   <Reveal key={i} delay={i * 0.1}>
@@ -163,17 +164,15 @@ export function BasesDeDatosPage() {
           />
           <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { title: "Velocidad Operativa", text: "Procesos de cierre mensual o reportes pesados que pasan de horas a minutos.", value: "Zap" },
-              { title: "Continuidad del Negocio", text: "Si un servidor se incendia, tu base de datos conmutará automáticamente a otro nodo.", value: "99.9%" },
-              { title: "Reducción de Costos", text: "Una base de datos optimizada requiere servidores más pequeños y baratos en la nube.", value: "-40%" },
-              { title: "Cero Pérdida", text: "Estrategias de Point-in-Time Recovery. Recupera tu información exacta al segundo previo a un desastre.", value: "Safe" }
+              { title: "Velocidad operativa", text: "Procesos de cierre mensual o reportes pesados que pasan de horas a minutos." },
+              { title: "Continuidad del negocio", text: "Si un servidor se incendia, tu base de datos conmutará automáticamente a otro nodo.", value: "99.9%" },
+              { title: "Reducción de costos", text: "Una base de datos optimizada requiere servidores más pequeños y baratos en la nube.", value: "-40%" },
+              { title: "Cero pérdida", text: "Estrategias de Point-in-Time Recovery. Recupera tu información exacta al segundo previo a un desastre." }
             ].map((b, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <div className="relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
-                  <div className="text-4xl font-bold text-primary/20 mb-4 group-hover:text-primary/40 transition-colors">
-                    {b.value === "Zap" ? <Zap className="w-8 h-8" /> : b.value}
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{b.title}</h3>
+                <div className="h-full relative overflow-hidden rounded-3xl bg-card border border-border p-6 sm:p-8 hover:border-primary/50 transition-colors group">
+                  {b.value && <div className="absolute right-5 top-5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{b.value}</div>}
+                  <h3 className={`text-lg font-semibold mb-2 ${b.value ? "pr-14" : ""}`}>{b.title}</h3>
                   <p className="text-sm text-muted-foreground">{b.text}</p>
                 </div>
               </Reveal>
@@ -182,7 +181,7 @@ export function BasesDeDatosPage() {
         </div>
       </section>
 
-      <CTASection />
+      <CTASection service="bases-de-datos" />
     </>
   );
 }
